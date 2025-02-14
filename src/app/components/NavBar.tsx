@@ -35,9 +35,9 @@ function Header() {
           </Link>
           <Link
             className={`${
-              pathname === "/collection" && "active"
+              pathname === "/blog" && "active"
             } flex flex-col items-center gap-1 `}
-            href="/collection"
+            href="/blog"
           >
             <p className="text-white">Blog</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-white hidden" />
@@ -106,9 +106,9 @@ function Header() {
             <Link
               onClick={() => setVisible(false)}
               className={`${
-                pathname === "/collection" && "bg-black text-white"
+                pathname === "/blog" && "bg-black text-white"
               } py-2 pl-6 border `}
-              href="/collection"
+              href="/blog"
             >
               Blog
             </Link>
