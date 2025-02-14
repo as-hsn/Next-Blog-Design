@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function StorySection() {
   return (
-    <div className="container mx-auto mt-[10rem]">
+    <div className="container mx-auto pt-44">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[110%] lg:w-[150%] lg:-mt-[5rem] order-1 lg:order-1">
           <Image

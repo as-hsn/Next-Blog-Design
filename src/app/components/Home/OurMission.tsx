@@ -1,6 +1,6 @@
 export default function OurMission() {
   return (
-    <div className="min-h-screen mb-14 mt-[8rem]">
+    <div className="pt-32">
       <div className="relative w-full max-w-8xl bg-purple-100/50 mx-auto px-4 py-16">
         <div className="absolute top-0 left-[20%] -mt-[1.20rem] w-full h-2 flex">
           <div className="w-[60%] h-[1.2rem] bg-yellow-400" />

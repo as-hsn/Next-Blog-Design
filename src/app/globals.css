@@ -96,3 +96,11 @@ a.active hr{
     border-right: 2px solid rgb(161, 161, 161);
   }
 } 
+
+@media (max-width: 640px ) {
+  .custom-px-main{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+

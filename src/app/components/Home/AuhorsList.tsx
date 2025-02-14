@@ -29,12 +29,12 @@ export default function AuthorsList() {
   ];
 
   return (
-    <div className="container mx-auto mt-[8rem]">
+    <div className="container mx-auto pt-32">
       <h1 className="text-3xl md:text-4xl font-bold text-center text-black mb-12">
         List of Authors
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {authors.map((author, index) => (
           <div
             key={index}

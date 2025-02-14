@@ -3,7 +3,7 @@ import React from "react";
 
 function JoinTeam() {
   return (
-    <div className="container mx-auto p-16 -mt-32">
+    <div className="container pt-32">
       <h1 className="text-center lg:text-3xl xl:text-4xl md:text-xl sm:text-lg font-bold lg:-mt-10 mb-12 text-slate-900">
         Join our team to be a part
         <br />

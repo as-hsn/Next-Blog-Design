@@ -20,7 +20,7 @@ import React from "react";
 
 function Logos() {
   return (
-    <div className="text-center space-y-8 container mx-auto py-16">
+    <div className="text-center space-y-8 container mx-auto pt-32">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
         <div className="mx-auto">
           <p className="text-gray-400 text-lg">We are</p>

@@ -5,7 +5,7 @@ import NewsLetter from "./NewsLetter";
 
 const Footer = () => {
   return (
-    <footer className="bg-customDark text-white py-8 px-4 md:px-8 lg:px-16">
+    <footer className="mt-32 bg-customDark text-white py-8 px-4 md:px-8 lg:px-16">
       <div className="max-w-[1400px] mx-auto mt-[1.5rem]">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16">
           <Link href="/" className="text-2xl font-bold mb-4 md:mb-0">

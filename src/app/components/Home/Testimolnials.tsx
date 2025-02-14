@@ -3,7 +3,7 @@ import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 
 export default function Testimonials() {
   return (
-    <div className="min-h-screen p-4 mt-4">
+    <div className="pt-32">
       <div className="relative w-full max-w-7xl bg-yellow-100/50 mx-auto px-4 py-8 sm:py-12 lg:py-16">
         <div className="relative mt-8 grid lg:grid-cols-2 gap-8 lg:gap-24">
           <div className="space-y-6 lg:pl-[6rem] vl">

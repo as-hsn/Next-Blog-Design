@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function FeaturedPosts() {
   return (
-    <div className="w-full max-w-[1300px] mx-auto">
-      <div className="grid lg:grid-cols-2 gap-x-16 gap-y-8 mt-[5%]">
+    <div className="w-full pt-32 max-w-[1300px] mx-auto">
+      <div className="grid lg:grid-cols-2 gap-x-16 gap-y-8">
         <div className="">
           <h2 className="text-[32px] font-bold text-black mb-8">
             Featured Post
