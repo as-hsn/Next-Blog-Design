@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  font-family: "Sen", serif;
+  font-optical-sizing: auto;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a.active hr{
+  display: block;
+}
+
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*::-webkit-scrollbar {
+  display: none;            
+}
+
+@media (min-width: 1340px) and (max-width: 1700px) {
+  .custom-style-navbar {
+    margin-right: -49vw !important;
+  }
+}
+
+@media (max-width: 1024px){
+  .custom-footer-css {
+    align-items: center !important;
+  }
+
+  .custom-css-heading{
+    margin-top: 0% !important;
+  }
+  .custom-css-news-letter{
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+  }
+  .custom-input-field{
+    max-width: fit-content !important;
+  }
+  .custom-css-second-div{
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 640px){
+  .custom-input-field{
+    max-width: 1rem !important;
+  }
+}
+
+/* .parent-container {
+  width: 100%;
+  overflow-x: hidden;  
+  overflow-y: auto;   
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .parent-container {
+    padding: 0 10px;  
+  }
+} */
+
+.custom-line-height{
+  line-height: 3rem !important;
+}
+
+
+@media (min-width: 1200px ) and (max-width: 1700px)  {
+  .vl {
+    border-right: 2px solid rgb(161, 161, 161);
+  }
+} 
