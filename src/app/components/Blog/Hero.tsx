@@ -4,8 +4,8 @@ import Link from "next/link"
 function Hero() {
   return (
     <div className="w-full bg-purple-100/50">
-      <div className="relative w-full max-w-7xl  mx-auto px-4 py-8 sm:py-12 md:py-16">
-        <div className="relative mt-4 sm:mt-6 md:mt-8 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+      <div className="relative w-full max-w-7xl  mx-auto px-20 py-[80px] sm:py-1[80px] md:py-1[80px]">
+        <div className="relative grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
           <div className="space-y-4 sm:space-y-6 md:pr-8">
             <h2 className="text-sm font-semibold uppercase text-black">FEATURED POST</h2>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-black">
