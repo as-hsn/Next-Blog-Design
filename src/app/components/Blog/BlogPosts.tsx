@@ -1,38 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BlogPostsData } from "../../../../public/data/blog-posts";
 
-const blogPosts = [
-  {
-    category: "STARTUP",
-    title: "Design tips for designers that cover everything you need",
-    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    image: "/assets/blog/blog1.png",
-  },
-  {
-    category: "BUSINESS",
-    title: "How to build rapport with your web design clients",
-    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    image: "/assets/blog/blog2.png",
-  },
-  {
-    category: "STARTUP",
-    title: "Logo design trends to avoid in 2022",
-    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    image: "/assets/blog/blog3.png",
-  },
-  {
-    category: "TECHNOLOGY",
-    title: "8 Figma design systems you can download for free today",
-    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    image: "/assets/blog/blog4.png",
-  },
-  {
-    category: "ECONOMY",
-    title: "Font sizes in UI design: The complete guide to follow",
-    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    image: "/assets/blog/blog5.png",
-  },
-];
 
 export default function BlogPosts() {
   return (
@@ -40,15 +9,15 @@ export default function BlogPosts() {
       <h1 className="text-3xl sm:text-4xl md:text-left text-center font-bold mb-8 text-black">
         All posts
       </h1>
-      <hr className="mb-16" />
+      <hr className="mb-16"/>
       <div className="space-y-8">
-        {blogPosts.map((post, index) => (
+        {BlogPostsData.map((post, index) => (
           <Link
-            href="#"
+            href={`blog-post/${post.title}`}
             key={index}
             className="group block hover:bg-gray-50 rounded-lg transition-colors"
           >
-            <article className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
               <div className="w-full max-w-[352px] mx-auto sm:mx-0 sm:w-48 md:w-64 lg:w-[22rem] aspect-[4/3] relative overflow-hidden rounded-lg">
                 <Image
                   src={post.image}
@@ -62,14 +31,14 @@ export default function BlogPosts() {
                 <span className="text-xs font-semibold tracking-wider text-purple-800">
                   {post.category}
                 </span>
-                <h2 className="text-lg sm:text-lg lg:text-3xl font-bold text-gray-900 group-hover:text-purple-800 transition-colors">
+                <h2 className="text-lg sm:text-lg lg:text-3xl font-bold text-gray-900 group-hover:text-purple-800 transition-colors line-clamp-2">
                   {post.title}
                 </h2>
                 <p className="text-sm sm:text-base text-gray-600 line-clamp-2">
                   {post.body}
                 </p>
               </div>
-            </article>
+            </div>
           </Link>
         ))}
       </div>
