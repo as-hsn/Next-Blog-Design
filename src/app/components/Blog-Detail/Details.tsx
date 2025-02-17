@@ -1,21 +1,22 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+// import Link from 'next/link'
+import React from 'react'
 
-export default function BlogHeader() {
+function Details() {
   return (
     <div className="relative w-full min-h-[600px]">
       <div className="absolute inset-0">
         <Image
-          src="/assets/hero.png"
+          src="/assets/blog-detail/blog-detail.png"
           alt="Hero img ..."
           fill
-          className="object-cover"
+          className="object-cover lg:px-20 md:px:10 px-4"
           priority
         />
-        <div className="absolute inset-0 bg-black/45" />
+        {/* <div className="absolute inset-0 bg-black/45" /> */}
       </div>
 
-      <div className="relative h-full w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* <div className="relative h-full w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-end h-full pb-16 sm:pb-20 lg:pb-24">
           <div className="max-w-2xl mt-[6.5rem]">
             <div className="mb-4">
@@ -57,7 +58,10 @@ export default function BlogHeader() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
-  );
+          
+  )
 }
+
+export default Details

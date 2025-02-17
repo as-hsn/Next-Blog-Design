@@ -23,7 +23,7 @@ function Header() {
             className="w-32 sm:w-36"
           />
         </Link>
-        <ul className="hidden md:flex gap-3 lg:gap-5 text-sm text-gray-700 items-baseline md:-mr-4 lg:-mr-[20rem] xl:-mr-[32rem] custom-style-navbar">
+        <ul className="hidden md:flex gap-3 lg:gap-5 text-sm text-gray-700 items-baseline md:-mr-4 lg:-mr-[20rem] xl:-mr-[31rem] custom-style-navbar">
           <Link
             className={`${
               pathname === "/" && "active"
