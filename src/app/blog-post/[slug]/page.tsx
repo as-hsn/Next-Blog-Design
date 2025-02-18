@@ -2,18 +2,12 @@ import React from "react";
 import Details from "@/app/components/Blog-Detail/Details";
 import ReadNext from "@/app/components/Blog-Detail/ReadNext";
 import JoinTeam from "@/app/components/Home/JoinTeam";
-// import { Metadata } from "next";
+
 
 interface BlogPostProps {
   params: { slug: string };
 }
 
-// export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
-//   return {
-//     title: `Blog - ${params.slug}`,
-//     description: `Read the latest post about ${params.slug}.`,
-//   };
-// }
 
 export default function BlogPostPage({ params }: BlogPostProps) {
   const decodedSlug = decodeURIComponent(params.slug);
