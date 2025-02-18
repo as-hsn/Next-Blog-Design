@@ -34,7 +34,7 @@ function Hero() {
             <div className="relative w-full max-w-[515px] aspect-[515/359]">
               <Image
                 src="/assets/blog-hero.png"
-                alt="Hero Image"
+                alt="Hero img ..."
                 fill
                 className="object-cover"
               />

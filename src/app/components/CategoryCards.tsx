@@ -1,37 +1,11 @@
 import Image from "next/image";
 import React from "react";
+import { CategoriesData } from "../../../public/data/category-cards";
 
 function CategoryCards() {
-  const categories = [
-    {
-      icon: "building.png",
-      title: "Business",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      isHighlighted: false,
-    },
-    {
-      icon: "rocket.png",
-      title: "Startup",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      isHighlighted: true,
-    },
-    {
-      icon: "economy.png",
-      title: "Economy",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      isHighlighted: false,
-    },
-    {
-      icon: "technology.png",
-      title: "Technology",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      isHighlighted: false,
-    },
-  ];
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {categories.map((category, index) => (
+      {CategoriesData.map((category, index) => (
         <div
           key={index}
           className="p-6 border transition-all hover:bg-yellow-400 bg-white border-gray-200"

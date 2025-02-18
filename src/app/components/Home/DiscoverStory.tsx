@@ -8,7 +8,7 @@ export default function StorySection() {
         <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[110%] lg:w-[150%] lg:-mt-[5rem] order-1 lg:order-1">
           <Image
             src="/assets/story-section.png"
-            alt="Friends enjoying a scenic view together"
+            alt="img ..."
             fill
             className="object-cover"
           />

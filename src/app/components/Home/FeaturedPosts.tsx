@@ -14,7 +14,7 @@ export default function FeaturedPosts() {
               <div className="relative lg:w-full xl:w-full md:w-80 aspect-[1.5] mb-6 ">
                 <Image
                   src="/assets/featured-posts-home.png"
-                  alt="White building with palm trees"
+                  alt="Image ..."
                   fill
                   className="object-cover rounded-lg"
                   priority
