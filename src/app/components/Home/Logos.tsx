@@ -1,3 +1,6 @@
+import Image from "next/image";
+import React from "react";
+
 const LogosArray = [
   {
     image: "logo1.png",
@@ -15,8 +18,6 @@ const LogosArray = [
     image: "logo5.png",
   },
 ];
-import Image from "next/image";
-import React from "react";
 
 function Logos() {
   return (

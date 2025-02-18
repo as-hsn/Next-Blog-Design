@@ -19,11 +19,9 @@ export default function BlogHeader() {
         <div className="flex flex-col justify-end h-full pb-16 sm:pb-20 lg:pb-24">
           <div className="max-w-2xl mt-[6.5rem]">
             <div className="mb-4">
-              <span className="text-sm font-medium tracking-wider text-gray-200">
-                POSTED ON{" "}
-                <Link href="/category/startup" className="text-white font-bold">
-                  STARTUP
-                </Link>
+              <span className="text-sm flex font-medium tracking-wider text-gray-200">
+                POSTED ON
+                <p className="text-white font-bold ml-1">STARTUP</p>
               </span>
             </div>
 
@@ -33,12 +31,9 @@ export default function BlogHeader() {
 
             <div className="flex items-center gap-2 text-gray-300 mb-4">
               <span>By</span>
-              <Link
-                href="/author/james-west"
-                className="text-yellow-400 hover:text-yellow-300"
-              >
+              <p className="text-yellow-400 hover:text-yellow-300">
                 James West
-              </Link>
+              </p>
               <span className="mx-2">|</span>
               <time dateTime="2022-05-23">May 23, 2022</time>
             </div>
@@ -50,7 +45,7 @@ export default function BlogHeader() {
             </p>
 
             <Link
-              href="/blog/font-pairs-guide"
+              href="#"
               className="inline-flex items-center px-6 py-3 bg-yellow-400 hover:bg-yellow-500 transition-colors text-gray-900 font-semibold rounded-sm group-hover:shadow-lg"
             >
               Read More <span className="ml-2">{">"}</span>

@@ -1,5 +1,5 @@
-import React from 'react'
-import CategoryCards from '../CategoryCards'
+import React from "react";
+import CategoryCards from "../CategoryCards";
 
 function BlogCategory() {
   return (
@@ -9,7 +9,7 @@ function BlogCategory() {
       </h1>
       <CategoryCards />
     </div>
-  )
+  );
 }
 
-export default BlogCategory
+export default BlogCategory;

@@ -1,5 +1,5 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -7,16 +7,20 @@ function Hero() {
       <div className="relative w-full max-w-7xl  mx-auto px-20 py-[80px] sm:py-1[80px] md:py-1[80px]">
         <div className="relative grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
           <div className="space-y-4 sm:space-y-6 md:pr-8">
-            <h2 className="text-sm font-semibold uppercase text-black">FEATURED POST</h2>
+            <h2 className="text-sm font-semibold uppercase text-black">
+              FEATURED POST
+            </h2>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-black">
               Step-by-step guide to choosing great font pairs
             </h3>
             <p className="text-gray-600 text-sm sm:text-base font-medium">
-              By <span className="text-purple-700">John Doe</span> | May 23, 2022
+              By <span className="text-purple-700">John Doe</span> | May 23,
+              2022
             </p>
             <p className="text-gray-600 text-sm sm:text-base">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident.
+              Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+              cupidatat non proident.
             </p>
             <Link
               href="#"
@@ -39,7 +43,7 @@ function Hero() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Hero
+export default Hero;

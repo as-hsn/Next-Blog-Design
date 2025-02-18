@@ -29,14 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
-{/* px-2 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] */}
-<div className="parent-container">
-  <Header />
-  {children}
-  <Footer />
-</div>
-
+        {/* px-2 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] */}
+        <div className="parent-container">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

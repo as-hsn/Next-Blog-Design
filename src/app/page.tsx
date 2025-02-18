@@ -11,18 +11,17 @@ import JoinTeam from "./components/Home/JoinTeam";
 export default function Home() {
   return (
     <div className="flex flex-col w-full overflow-x-hidden">
-    <Hero />
-    <div className="lg:px-16 xl:px-16 md:px-6 sm:p-5 custom-px-main">
-    <FeaturedPosts />
-    <OurMission />
-    <CategorySection />
-    <StorySection />
-    <AuthorsList />
-    <Logos />
-    <Testimonials />
-    <JoinTeam />
+      <Hero />
+      <div className="lg:px-16 xl:px-16 md:px-6 sm:p-5 custom-px-main">
+        <FeaturedPosts />
+        <OurMission />
+        <CategorySection />
+        <StorySection />
+        <AuthorsList />
+        <Logos />
+        <Testimonials />
+        <JoinTeam />
+      </div>
     </div>
-  </div>
-  
   );
 }

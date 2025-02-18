@@ -2,14 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { BlogPostsData } from "../../../../public/data/blog-posts";
 
-
 export default function BlogPosts() {
   return (
     <div className="w-full max-w-7xl mx-auto py-8 sm:py-12">
       <h1 className="text-3xl sm:text-4xl md:text-left text-center font-bold mb-8 text-black">
         All posts
       </h1>
-      <hr className="mb-16"/>
+      <hr className="mb-16" />
       <div className="space-y-8">
         {BlogPostsData.map((post, index) => (
           <Link
