@@ -6,7 +6,7 @@ import { BlogPostsData } from "../../../../public/data/blog-posts";
 import Header from "./Header";
 
 interface BlogPostProps {
-  params: string;
+  params: { slug: string };
 }
 
 interface BlogPost {
@@ -25,16 +25,17 @@ const findBlogByTitle = (title: string) => {
 };
 
 const Details = ({ params }: BlogPostProps) => {
+  const decodedSlug = decodeURIComponent(params.slug);
   const [blog, setBlog] = useState<BlogPost | null>(null);
 
   useEffect(() => {
-    const blogPost = findBlogByTitle(params);
+    const blogPost = findBlogByTitle(decodedSlug);
     console.log(blogPost);
 
     if (blogPost) {
       setBlog(blogPost);
     }
-  }, [params]);
+  }, [decodedSlug]);
 
   return (
     <div>
