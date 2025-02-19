@@ -3,12 +3,14 @@ import Details from "@/app/components/Blog-Detail/Details";
 import ReadNext from "@/app/components/Blog-Detail/ReadNext";
 import JoinTeam from "@/app/components/Home/JoinTeam";
 
-export default function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const decodedSlug = decodeURIComponent(params.slug);
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const decodedSlug = decodeURIComponent(resolvedParams.slug);
   return (
     <div className="flex flex-col w-full overflow-x-hidden">
       <Details slug={decodedSlug} />
