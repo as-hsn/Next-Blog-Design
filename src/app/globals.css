@@ -8,6 +8,10 @@
   font-optical-sizing: auto;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #ffffff;
@@ -102,5 +106,13 @@ a.active hr{
     padding-left: 1rem;
     padding-right: 1rem;
   }
+}
+
+input::placeholder {
+  color: rgb(70, 70, 70);
+}
+
+textarea::placeholder{
+  color: rgb(70, 70, 70);
 }
 

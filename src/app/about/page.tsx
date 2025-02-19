@@ -12,7 +12,9 @@ function page() {
       <OurTeam />
       <StartDetails />
       <AboutUsAuthorsList />
+      <div className="px-10">
       <JoinTeam />
+      </div>
     </div>
   )
 }

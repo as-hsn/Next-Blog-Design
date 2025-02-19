@@ -133,11 +133,29 @@ function Header() {
             <Link
               onClick={() => setVisible(false)}
               className={`${
-                pathname === "/contact" && "bg-black text-white"
+                pathname === "/our-policy" && "bg-black text-white"
               } py-2 pl-6 border`}
-              href="/contact"
+              href="/our-policy"
             >
-              Subscribe
+              Privacy Policy
+            </Link>
+            <Link
+              onClick={() => setVisible(false)}
+              className={`${
+                pathname === "/author" && "bg-black text-white"
+              } py-2 pl-6 border`}
+              href="/author"
+            >
+              Author
+            </Link>
+            <Link
+              onClick={() => setVisible(false)}
+              className={`${
+                pathname === "/category" && "bg-black text-white"
+              } py-2 pl-6 border`}
+              href="/category"
+            >
+              Category
             </Link>
           </div>
         </div>

@@ -6,8 +6,8 @@ import NewsLetter from "./NewsLetter";
 const Footer = () => {
   return (
     <footer className="mt-32 bg-customDark text-white py-8 px-4 md:px-8 lg:px-16">
-      <div className="max-w-[1400px] mx-auto mt-[1.5rem]">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16">
+      <div className="max-w-[1440px] mx-auto mt-[1.5rem]">
+        <div className="block lg:flex flex-col md:flex-row justify-between items-start md:items-center mb-16">
           <Link href="/" className="text-2xl font-bold mb-4 md:mb-0">
             <Image
               src="/assets/logo.png"
@@ -17,7 +17,7 @@ const Footer = () => {
               className="w-28 sm:w-28"
             />
           </Link>
-          <nav className="flex flex-col md:flex-row gap-4 md:gap-8">
+          <nav className="flex flex-col mt-6 lg:mt-0 md:flex-row gap-4 md:gap-8">
             <Link href="/" className="hover:text-gray-300 transition-colors">
               Home
             </Link>
@@ -40,15 +40,27 @@ const Footer = () => {
               Contact us
             </Link>
             <Link
-              href="/privacy"
+              href="/our-policy"
               className="hover:text-gray-300 transition-colors"
             >
               Privacy Policy
             </Link>
+            <Link
+              href="/author"
+              className="hover:text-gray-300 transition-colors"
+            >
+              Author
+            </Link>
+            <Link
+              href="/category"
+              className="hover:text-gray-300 transition-colors"
+            >
+              Category
+            </Link>
           </nav>
         </div>
 
-        {/* News Letter Section */}
+        {/* News Letter Component */}
         
         <NewsLetter />
 

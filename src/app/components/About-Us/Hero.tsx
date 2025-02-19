@@ -9,7 +9,7 @@ export default function AboutSection() {
             <h2 className="uppercase text-sm tracking-[0.2em] text-gray-600 mb-4 lg:mb-6">
               ABOUT US
             </h2>
-            <h1 className="text-xl lg:text-2xl xl:text-4xl font-bold leading-[1.2] text-gray-900">
+            <h1 className="text-2xl lg:text-2xl xl:text-4xl font-bold leading-[1.2] text-gray-900">
               We are a team of content writers who share their learnings
             </h1>
           </div>
