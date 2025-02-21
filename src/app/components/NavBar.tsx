@@ -6,10 +6,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RiMenuFold4Line } from "react-icons/ri";
 import { MdMenuOpen } from "react-icons/md";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import { PiUserCircleLight } from "react-icons/pi";
+import { IoIosLogOut } from "react-icons/io";
 
 function Header() {
   const [visible, setVisible] = useState<boolean>(false);
   const pathname = usePathname();
+  const [user, setUser] = useState(false);
+  const token = Cookies.get("token");
+
+  useEffect(() => {
+    if (token) {
+      setUser(true);
+    }
+  }, [token]);
+
+
+  const handleLogout = () => {
+    console.log('clicked');
+    Cookies.remove("token", { path: "/" }); 
+    setUser(false)
+};
 
   return (
     <>
@@ -23,7 +42,7 @@ function Header() {
             className="w-32 sm:w-36"
           />
         </Link>
-        <ul className="hidden md:flex gap-3 lg:gap-5 text-sm text-gray-700 items-baseline md:-mr-4 lg:-mr-[20rem] xl:-mr-[31rem] custom-style-navbar">
+        <ul className="hidden md:flex gap-3 lg:gap-5 text-sm text-gray-700  md:-mr-4 lg:-mr-[20rem] xl:-mr-[31rem] custom-style-navbar items-center">
           <Link
             className={`${
               pathname === "/" && "active"
@@ -31,7 +50,7 @@ function Header() {
             href="/"
           >
             <p className="text-white">HOME</p>
-            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden" />
+            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden -mb-[0.35rem]" />
           </Link>
           <Link
             className={`${
@@ -40,7 +59,7 @@ function Header() {
             href="/blog"
           >
             <p className="text-white">Blog</p>
-            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden" />
+            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden -mb-[0.35rem]" />
           </Link>
 
           <Link
@@ -50,7 +69,7 @@ function Header() {
             href="/about"
           >
             <p className="text-white">About Us</p>
-            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden" />
+            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden -mb-[0.35rem]" />
           </Link>
           <Link
             className={`${
@@ -59,18 +78,32 @@ function Header() {
             href="/contact"
           >
             <p className="text-white">Contact Us</p>
-            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden" />
+            <hr className="w-2/4 border-none h-[1.5px] bg-white hidden -mb-[0.35rem]" />
           </Link>
-          <Link
-            className={`${
-              pathname === "/contact" && "active"
-            } flex flex-col items-center gap-1 `}
-            href=""
-          >
-            <p className="text-customDark bg-white px-3 md:px-4 lg:px-6 py-2 md:py-3 font-semibold text-xs sm:text-sm md:text-base">
-              Subscribe
-            </p>
-          </Link>
+          {!user ? (
+            <Link
+              className={`${
+                pathname === "/contact" && "active"
+              } flex flex-col items-center gap-1 `}
+              href="/register"
+            >
+              <p className="text-customDark bg-white px-3 md:px-4 lg:px-6 py-2 md:py-3 font-semibold text-xs sm:text-sm md:text-base">
+                Register
+              </p>
+            </Link>
+          ) : (
+            <>
+              <div className="relative group cursor-pointer">
+                <PiUserCircleLight className="text-white w-8 h-8" />
+
+                <div className="hidden group-hover:block z-50 lg:right dropdown-menu pt-4 fixed -ml-20">  
+                  <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-700 text-base rounded shadow-lg">
+                    <p onClick={handleLogout} className="flex items-center cursor-pointer hover:text-black hover:font-semibold">Logout <IoIosLogOut className="ml-3 text-red-500 w-6 h-6"/></p>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </ul>
         <div className="flex items-center gap-6 mr-2 sm:mr-4 md:mr-0">
           <MdMenuOpen

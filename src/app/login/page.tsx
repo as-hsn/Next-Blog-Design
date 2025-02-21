@@ -1,19 +1,20 @@
 "use client";
 
-import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Container from "../components/Login-register/Container";
 import Link from "next/link";
+import ShowToast from "../components/ShowToast";
+import { useRouter } from "next/navigation";
+
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 function Page() {
+  const router = useRouter();
   return (
     <Container>
       <div className="text-gray-800">
@@ -29,8 +30,32 @@ function Page() {
             confirm_password: "",
           }}
           validationSchema={SignupSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log("Form Submitted", values);
+          onSubmit={async (values, { setSubmitting, setErrors }) => {
+            try {
+              const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: values.name,
+                  email: values.email,
+                  password: values.password,
+                }),
+              });
+
+              const data = await res.json();
+
+              if (!data.success) {
+                ShowToast(data.message ? data.message : "SignUp Failed", "error");
+              } else {
+                ShowToast(data.message ? data.message : "SignUp Successful", "success");
+                Object.assign(values, { email: "", password: "", confirm_password: "", name: "" });
+                router.replace("/");
+              }
+            } catch (error) {
+              console.error("Signup Error:", error);
+              setErrors({ email: "Something went wrong. Try again!" });
+            }
+
             setSubmitting(false);
           }}
         >
@@ -91,7 +116,14 @@ function Page() {
                     className="w-full justify-center bg-center py-2 mt-6 h-full rounded-sm bg-yellow-400 font-medium text-lg"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Loading ..." : "Login"}
+                    {isSubmitting ? (
+                    <div className="cursor-wait flex items-center space-x-2 justify-center">
+                      <p className="font-normal">Verification in progress...</p>
+                      <div className="loader"></div>
+                    </div>
+                  ) : (
+                    "Login"
+                  )}
                   </button>
                 </div>
               </form>
