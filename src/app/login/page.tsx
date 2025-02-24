@@ -141,7 +141,7 @@ function Page() {
               <p className="text-gray-400 mt-4 text-left">
                 <span>
                   <Link
-                    href="#"
+                    href="/password-reset"
                     className="text-indigo-600 underline underline-offset-2 font-normal text-sm"
                   >
                     Forgot password?

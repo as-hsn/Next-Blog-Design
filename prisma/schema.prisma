@@ -17,3 +17,12 @@ model User {
   otpExpires   DateTime? // OTP expiration time
   createdAt    DateTime @default(now())
 }
+
+model EmailOtp {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique // Unique constraint is already applied here
+  otp        String   @db.VarChar(6)
+  expiresAt  DateTime
+  status     String   @default("pending") @db.VarChar(10) // 'pending' or 'verified'
+  createdAt  DateTime @default(now())
+}

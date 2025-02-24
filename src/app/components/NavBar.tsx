@@ -10,12 +10,13 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosLogOut } from "react-icons/io";
+import ShowToast from "./ShowToast";
 
 function Header() {
   const [visible, setVisible] = useState<boolean>(false);
   const pathname = usePathname();
   const [user, setUser] = useState(false);
-  const token = Cookies.get("token");
+  const token = Cookies.get("token");  
 
   useEffect(() => {
     if (token) {
@@ -25,8 +26,8 @@ function Header() {
 
 
   const handleLogout = () => {
-    console.log('clicked');
     Cookies.remove("token", { path: "/" }); 
+    ShowToast('You have been logged out')
     setUser(false)
 };
 

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export default function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value; 
 
-  const authRoutes = ["/login", "/register"]; // Routes that wont be access able after login
+  const authRoutes = ["/login", "/register","/reset-password","/password-reset"]; // Routes that wont be access able after login
 
   // Check if user authenticated then will be redirected to home page
   if (token && authRoutes.includes(req.nextUrl.pathname)) {
@@ -14,5 +14,5 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/register"], // Middleware run on these routes
+  matcher: ["/login", "/register","/reset-password","/password-reset"], // Middleware run on these routes
 };

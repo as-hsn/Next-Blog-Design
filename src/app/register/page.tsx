@@ -6,25 +6,82 @@ import Container from "../components/Login-register/Container";
 import Link from "next/link";
 import ShowToast from "../components/ShowToast";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-const SignupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Name must contain 4 characters!")
-    .required("Full Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
-  confirm_password: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Confirm Password is required"),
-  otp: Yup.string()
-});
+import { useState, useEffect } from "react";
 
 function Page() {
   const router = useRouter();
   const [showOtpField, setShowOtpField] = useState<boolean>(false);
+  const [resendOtp, setSendResetOtp] = useState<boolean>(false);
+  const [timer, settimer] = useState<number>(0);
+  const [otpEmail, setOtpEmail] = useState<string>("");
+
+  useEffect(() => {
+    if (timer > 0) {
+      const timerId = setInterval(() => {
+        settimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timerId);
+    }
+  }, [timer]);
+
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, "Name must contain 4 characters!")
+      .required("Full Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
+    confirm_password: Yup.string()
+      .oneOf([Yup.ref("password")], "Passwords must match")
+      .required("Confirm Password is required"),
+    otp: showOtpField
+      ? Yup.string()
+          .min(4, "OTP must be at least 4 characters")
+          .required("OTP is required")
+      : Yup.string(),
+  });
+
+  const handleResendOtp = async (
+    name: string,
+    email: string,
+    password: string,
+    otp: string
+  ) => {
+    setSendResetOtp(true)
+    try {
+      if (!otpEmail) {
+        ShowToast("Email not found.", "error");
+        return;
+      }
+
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          otp: otp,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setSendResetOtp(false)
+        ShowToast(data.message || "OTP resent successfully", "success");
+        settimer(60);
+      } else {
+        setSendResetOtp(false)
+        ShowToast(data.message || "Failed to resend OTP", "error");
+      }
+    } catch (error) {
+      setSendResetOtp(false)
+      console.error("Resend OTP Error:", error);
+      ShowToast("Something went wrong. Please try again.", "error");
+    }
+  };
 
   return (
     <Container>
@@ -39,7 +96,7 @@ function Page() {
             email: "",
             password: "",
             confirm_password: "",
-            otp:""
+            otp: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={async (values, { setSubmitting, setErrors }) => {
@@ -51,13 +108,13 @@ function Page() {
                   name: values.name,
                   email: values.email,
                   password: values.password,
+                  otp: values.otp,
                 }),
               });
 
               const data = await res.json();
 
               if (!data.success) {
-                console.log(data);
                 ShowToast(
                   data.message ? data.message : "SignUp Failed",
                   "error"
@@ -67,7 +124,9 @@ function Page() {
                   data.message ? data.message : "Retry again",
                   "success"
                 );
+                setOtpEmail(values.email);
                 setShowOtpField(true);
+                settimer(60);
               } else {
                 ShowToast(
                   data.message ? data.message : "SignUp Successful",
@@ -78,7 +137,7 @@ function Page() {
                   password: "",
                   confirm_password: "",
                   name: "",
-                  otp:""
+                  otp: "",
                 });
                 router.replace("/");
               }
@@ -86,7 +145,6 @@ function Page() {
               console.error("Signup Error:", error);
               setErrors({ email: "Something went wrong. Try again!" });
             }
-
             setSubmitting(false);
           }}
         >
@@ -180,11 +238,12 @@ function Page() {
                     </div>
                   )}
                 </div>
-                {/* Otp field */}
+
+                {/* Otp field with resend button */}
                 {showOtpField && (
                   <div className="input-group bg-none mt-6">
                     <input
-                      type="password"
+                      type="text"
                       name="otp"
                       autoComplete="off"
                       className="input input w-full border-2 border-gray-400/40 rounded-sm"
@@ -199,19 +258,44 @@ function Page() {
                         {errors.otp}
                       </div>
                     )}
+                    <div className="flex justify-center mt-2">
+                      <span
+                        onClick={() =>
+                          timer === 0 &&
+                          handleResendOtp(
+                            values.name,
+                            values.email,
+                            values.password,
+                            ""
+                          )
+                        }
+                        className={`text-sm cursor-pointer ${
+                          timer > 0
+                            ? "text-gray-400 cursor-not-allowed"
+                            : "text-indigo-600 hover:underline"
+                        }`}
+                      >
+                        {timer > 0
+                          ? `Resend OTP in ${timer}s`
+                          : "Resend OTP"}
+                      </span>
+                    </div>
                   </div>
                 )}
-                {/* Submit Button */}
+
+                {/* Submit button */}
                 <button
                   type="submit"
                   className="justify-center w-full bg-center py-2 mt-6 h-full rounded-sm bg-yellow-400 font-medium text-lg"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? (
+                  {isSubmitting || resendOtp ? (
                     <div className="cursor-wait flex items-center space-x-2 justify-center">
                       <p className="font-normal">Verification in progress...</p>
                       <div className="loader"></div>
                     </div>
+                  ) : showOtpField ? (
+                    "Verify OTP"
                   ) : (
                     "Sign Up"
                   )}
