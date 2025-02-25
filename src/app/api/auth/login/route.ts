@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 import { serialize } from "cookie";
 
-export async function POST(req: Request) {
+export async function POST(req : NextRequest) {
   try {
     const { email, password } = await req.json();
 
@@ -34,10 +34,16 @@ export async function POST(req: Request) {
       );
     }
 
+    const secretKey = process.env.SECRET_KEY_JWT;
+    if (!secretKey) {
+      throw new Error("SECRET_KEY_JWT is not defined");
+    }
+
     // Generate JWT token
-    const token = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET_KEY_JWT as string, {
+    const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
       expiresIn: "7d",
     });
+    
 
     // Set token
     const response = NextResponse.json({ success: true, message: "Login successful" });
