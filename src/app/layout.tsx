@@ -5,6 +5,7 @@ import Header from "./components/NavBar";
 import Footer from "./components/Footer";
 import ToastProvider from "./components/ToastProvider";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en">
       <body

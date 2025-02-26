@@ -1,3 +1,4 @@
+"use client"
 import CategorySection from "./components/Home/Category";
 import OurMission from "./components/Home/OurMission";
 import FeaturedPosts from "./components/Home/FeaturedPosts";

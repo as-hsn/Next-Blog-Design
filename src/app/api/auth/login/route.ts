@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
-import { serialize } from "cookie";
+import { generateAccessToken, generateRefreshToken } from "@/utils/auth";
 
-export async function POST(req : NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
 
@@ -34,29 +33,38 @@ export async function POST(req : NextRequest) {
       );
     }
 
-    const secretKey = process.env.SECRET_KEY_JWT;
+    const secretKey = process.env.ACCESS_TOKEN_SECRET;
     if (!secretKey) {
-      throw new Error("SECRET_KEY_JWT is not defined");
+      throw new Error("ACCESS_TOKEN_SECRET is not defined");
     }
 
-    // Generate JWT token
-    const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
-      expiresIn: "7d",
-    });
-    
+    const newUser = {
+      id:user.id,
+      email:user.email
+    }
 
-    // Set token
-    const response = NextResponse.json({ success: true, message: "Login successful" });
-    response.headers.set(
-      "Set-Cookie",
-      serialize("token", token, {
-        httpOnly: false,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7, 
-      })
-    );
+    
+    //  Generate JWT Token
+    const accessToken = generateAccessToken(newUser);
+    const refreshToken = await generateRefreshToken(newUser);
+
+    const response = NextResponse.json({ success:true,message: "You are now logged in" ,accessToken }, { status: 200 });
+
+          // Store Access Token in Cookies
+          response.cookies.set("accessToken", accessToken, {
+            httpOnly: false, // Prevent client-side access
+            secure: process.env.NODE_ENV === "production",
+            path: "/",
+            maxAge: 20 * 60 * 1000, // 1 day expiration time
+          });
+    
+          // Store Refresh Token in Cookies
+          response.cookies.set("refreshToken",  refreshToken, {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === "production",
+            path: "/",
+            maxAge: 7 * 24 * 60 * 60, // 7 days expiry
+          });    
 
     return response;
   } catch (error) {

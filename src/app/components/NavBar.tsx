@@ -12,25 +12,28 @@ import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosLogOut } from "react-icons/io";
 import ShowToast from "./ShowToast";
 
+
 function Header() {
   const [visible, setVisible] = useState<boolean>(false);
   const pathname = usePathname();
   const [user, setUser] = useState(false);
-  const token = Cookies.get("token");  
+  const token = Cookies.get("accessToken");
 
+  
   useEffect(() => {
     if (token) {
       setUser(true);
     }
   }, [token]);
-
-
+  
+  
   const handleLogout = () => {
-    Cookies.remove("token", { path: "/" }); 
+    Cookies.remove("accessToken", { path: "/" }); 
+    Cookies.remove("refreshToken", { path: "/" }); 
     ShowToast('You have been logged out')
     setUser(false)
-};
-
+  };
+ 
   return (
     <>
       <div className="flex items-center justify-between py-5 font-medium bg-customDark overflow-x-hidden">

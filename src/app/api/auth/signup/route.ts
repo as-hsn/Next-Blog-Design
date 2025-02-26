@@ -1,8 +1,9 @@
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-import { serialize } from "cookie";
+// import jwt from "jsonwebtoken";
+// import { serialize } from "cookie";
+import { generateAccessToken,generateRefreshToken } from "@/utils/auth";
 
 export async function POST(req: Request) {
   try {
@@ -80,25 +81,29 @@ export async function POST(req: Request) {
     });
 
     //  Generate JWT Token
-    const token = jwt.sign({ email }, process.env.SECRET_KEY_JWT as string, {
-      expiresIn: "7d",
-    });
+    const accessToken = generateAccessToken(newUser);
+    const refreshToken = await  generateRefreshToken(newUser);
 
-    //  Set authentication cookie
-    const cookie = serialize("token", token, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
+  
+    const response = NextResponse.json({ success:true,message: "You are now logged in" ,accessToken }, { status: 200 });
 
-    const response = NextResponse.json({
-      success: true,
-      message: "You're now signed up.",
-      newUser,
-    });
-    response.headers.set("Set-Cookie", cookie);
+          // Store Access Token in Cookies
+      response.cookies.set("accessToken", accessToken, {
+        httpOnly: false, // Prevent client-side access
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: 20 * 60 * 1000, // 1 day expiration time
+      });
+
+      // Store Refresh Token in Cookies
+      response.cookies.set("refreshToken",  refreshToken, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: 7 * 24 * 60 * 60, // 7 days expiry
+      });
+
+
     return response;
   } catch (error) {
     console.error("Signup Error:", error);
