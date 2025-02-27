@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Pool } from "pg";
 import nodemailer from "nodemailer";
+import prisma from "@/lib/prisma";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -13,6 +14,17 @@ export async function POST(req: NextRequest) {
     if (!email) {
       return NextResponse.json(
         { success: false, error: "Email is required" },
+        { status: 400 }
+      );
+    }
+
+     const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!existingUser) {
+      return NextResponse.json(
+        { success: false, error: "Your email is not registered. Please register first." },
         { status: 400 }
       );
     }
@@ -63,7 +75,7 @@ export async function POST(req: NextRequest) {
     
 
     return NextResponse.json(
-      { success: true, message: "Password reset PIN sent successfully!" },
+      { success: true, message: "Password reset PIN sent successfully to your email!" },
       { status: 200 }
     );
   } catch (error) {

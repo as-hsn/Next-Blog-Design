@@ -5,8 +5,8 @@ export async function middleware(req: NextRequest) {
   const refreshToken = req.cookies.get("refreshToken")?.value;
 
   console.log("🚀 Middleware running on:", req.nextUrl.pathname);
-  console.log("🚀 Existing Access Token:", accessToken);
-  console.log("🚀 Existing Refresh Token:", refreshToken);
+  // console.log("🚀 Existing Access Token:", req);
+  // console.log("🚀 Existing Refresh Token:", refreshToken);
 
   const authRoutes = ["/login", "/register", "/reset-password", "/password-reset"];
   const protectedRoutes = ["/contact"];
@@ -15,9 +15,14 @@ export async function middleware(req: NextRequest) {
   if (accessToken && authRoutes.includes(req.nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/", req.url));
   }
+  
+  // 🚀 Prevent logged-in users from accessing auth pages
+  if (!accessToken && protectedRoutes.includes(req.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
   // 🚀 If user is NOT authenticated and tries to access protected routes
-  if (!accessToken && refreshToken && protectedRoutes.includes(req.nextUrl.pathname)) {
+  if (!accessToken && refreshToken) {
     try {
       const res = await fetch(`${req.nextUrl.origin}/api/auth/refresh`, {
         method: "GET",

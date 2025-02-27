@@ -139,7 +139,7 @@ function Page() {
                   name: "",
                   otp: "",
                 });
-                router.replace("/");
+                router.refresh()
               }
             } catch (error) {
               console.error("Signup Error:", error);

@@ -10,30 +10,42 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosLogOut } from "react-icons/io";
+// import ShowToast from "./ShowToast";
+import { useRouter } from 'next/navigation'
+// import prisma from "@/lib/prisma";
+// import jwt from "jsonwebtoken";
 import ShowToast from "./ShowToast";
-
 
 function Header() {
   const [visible, setVisible] = useState<boolean>(false);
   const pathname = usePathname();
   const [user, setUser] = useState(false);
   const token = Cookies.get("accessToken");
+  const router = useRouter();
 
-  
   useEffect(() => {
     if (token) {
       setUser(true);
     }
   }, [token]);
+
+  async function handleLogout() {
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const data = await response.json();
+      Cookies.remove("accessToken", { path: "/" });
+      Cookies.remove("refreshToken", { path: "/" });
+      ShowToast(data.message);
+      router.refresh()
+    } catch (error) {
+      console.error("🚀 Logout error:", error);
+    }
+  }
   
-  
-  const handleLogout = () => {
-    Cookies.remove("accessToken", { path: "/" }); 
-    Cookies.remove("refreshToken", { path: "/" }); 
-    ShowToast('You have been logged out')
-    setUser(false)
-  };
- 
   return (
     <>
       <div className="flex items-center justify-between py-5 font-medium bg-customDark overflow-x-hidden">
@@ -75,6 +87,7 @@ function Header() {
             <p className="text-white">About Us</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-white hidden -mb-[0.35rem]" />
           </Link>
+
           <Link
             className={`${
               pathname === "/contact" && "active"
@@ -100,9 +113,15 @@ function Header() {
               <div className="relative group cursor-pointer">
                 <PiUserCircleLight className="text-white w-8 h-8" />
 
-                <div className="hidden group-hover:block z-50 lg:right dropdown-menu pt-4 fixed -ml-20">  
+                <div className="hidden group-hover:block z-50 lg:right dropdown-menu pt-4 fixed -ml-20">
                   <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-700 text-base rounded shadow-lg">
-                    <p onClick={handleLogout} className="flex items-center cursor-pointer hover:text-black hover:font-semibold">Logout <IoIosLogOut className="ml-3 text-red-500 w-6 h-6"/></p>
+                    <p
+                      onClick={handleLogout}
+                      className="flex items-center cursor-pointer hover:text-black hover:font-semibold"
+                    >
+                      Logout{" "}
+                      <IoIosLogOut className="ml-3 text-red-500 w-6 h-6" />
+                    </p>
                   </div>
                 </div>
               </div>

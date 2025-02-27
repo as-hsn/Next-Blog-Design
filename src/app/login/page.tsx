@@ -49,7 +49,7 @@ function Page() {
               } else {
                 ShowToast(data.message ? data.message : "SignUp Successful", "success");
                 Object.assign(values, { email: "", password: "", confirm_password: "", name: "" });
-                router.replace("/");
+                router.refresh()
               }
             } catch (error) {
               console.error("Signup Error:", error);
