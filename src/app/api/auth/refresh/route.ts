@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
       where: { email: user.email },
     });
 
-    console.log("🚀 ~ GET ~ findUser:", findUser);
+    // console.log("🚀 ~ GET ~ findUser:", findUser);
 
     if (!findUser || findUser.refreshToken !== getRefreshToken) {
       throw new Error("Invalid refresh token or user not found");

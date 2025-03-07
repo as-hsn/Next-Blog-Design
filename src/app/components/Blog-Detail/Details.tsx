@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { BlogPostsData } from "../../../../public/data/blog-posts";
 import Header from "./Header";
+import ShowToast from "../ShowToast";
+import ReadNext from "./ReadNext";
 
 interface BlogPostProps {
   slug: string;
@@ -13,42 +14,55 @@ interface BlogPost {
   category: string;
   title: string;
   body: string;
-  image: string;
+  blogImgUrl: string;
   date: string;
-  author: string;
+  authorName: string;
+  postedDate: string
+  authorImageUrl: string
 }
 
-const findBlogByTitle = (title: string) => {
-  return BlogPostsData.find(
-    (blogPost) => blogPost.title.toLowerCase() === title.toLowerCase()
-  );
-};
 
 const Details = ({ slug }: BlogPostProps) => {
   const [blog, setBlog] = useState<BlogPost | null>(null);
+  const [relatedBlogsCategory, setRelatedBlogsCategory] = useState<string | null>(null);
+
 
   useEffect(() => {
-    const blogPost = findBlogByTitle(slug);
-    console.log(blogPost);
+    if (!slug) return;
 
-    if (blogPost) {
-      setBlog(blogPost);
-    }
+    const fetchBlogBySlug = async () => {
+      try {
+        const res = await fetch(`/api/getBlog?slug=${encodeURIComponent(slug)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Failed to fetch blog");
+        setBlog(data.blog);
+        console.log("🚀 ~ fetchBlogBySlug ~ data.blog:", data.blog)
+        
+        setRelatedBlogsCategory(data.blog.category)
+      } catch (error) {
+        console.error("Error fetching blog:", error);
+        ShowToast("Error fetching blog", "error");
+      }
+    };
+
+    fetchBlogBySlug();
   }, [slug]);
 
+
   return (
-    <div>
+    <><div>
       {blog ? (
         <>
           <Header
             title={blog.title}
             category={blog.category}
-            author={blog.author}
-            date={blog.date}
+            author={blog.authorName}
+            date={new Date(blog.postedDate)}
+            authorImage={blog.authorImageUrl}
           />
-          <div className="justify-center flex lg:px-20 md:px-10 px-5 max-w[1280px] max-h-[582px]">
+          <div className="justify-center flex lg:px-20 md:px-10 px-5 max-w-[1280px] max-h-[582px]">
             <Image
-              src={`${blog.image}`}
+              src={blog.blogImgUrl}
               alt="Hero img ..."
               width={1280}
               height={582}
@@ -66,9 +80,12 @@ const Details = ({ slug }: BlogPostProps) => {
           </div>
         </>
       ) : (
-        <p>Blog not found</p>
+        <p className="text-center text-gray-600 mt-10">Blog not found</p>
       )}
     </div>
+    <ReadNext category={relatedBlogsCategory} />
+    </>
+    
   );
 };
 

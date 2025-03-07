@@ -46,12 +46,6 @@ const Footer = () => {
               Privacy Policy
             </Link>
             <Link
-              href="/author"
-              className="hover:text-gray-300 transition-colors"
-            >
-              Author
-            </Link>
-            <Link
               href="/category"
               className="hover:text-gray-300 transition-colors"
             >

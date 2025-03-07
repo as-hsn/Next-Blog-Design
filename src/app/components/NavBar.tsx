@@ -10,11 +10,11 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosLogOut } from "react-icons/io";
-// import ShowToast from "./ShowToast";
 import { useRouter } from 'next/navigation'
-// import prisma from "@/lib/prisma";
-// import jwt from "jsonwebtoken";
 import ShowToast from "./ShowToast";
+import { BiMessageAdd } from "react-icons/bi";
+import { LuUserPen } from "react-icons/lu";
+
 
 function Header() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -39,6 +39,7 @@ function Header() {
       const data = await response.json();
       Cookies.remove("accessToken", { path: "/" });
       Cookies.remove("refreshToken", { path: "/" });
+      setUser(false)
       ShowToast(data.message);
       router.refresh()
     } catch (error) {
@@ -114,7 +115,7 @@ function Header() {
                 <PiUserCircleLight className="text-white w-8 h-8" />
 
                 <div className="hidden group-hover:block z-50 lg:right dropdown-menu pt-4 fixed -ml-20">
-                  <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-700 text-base rounded shadow-lg">
+                  <div className="flex flex-col gap-2 py-3 px-5 bg-slate-100 text-gray-700 text-base rounded shadow-lg w-max">
                     <p
                       onClick={handleLogout}
                       className="flex items-center cursor-pointer hover:text-black hover:font-semibold"
@@ -122,6 +123,21 @@ function Header() {
                       Logout{" "}
                       <IoIosLogOut className="ml-3 text-red-500 w-6 h-6" />
                     </p>
+                   
+                    <Link
+                     href={"/profile"}
+                      className="flex mt-4 items-center cursor-pointer hover:text-black hover:font-semibold"
+                    >
+                      Profile{" "}
+                      <LuUserPen className="ml-3 text-indigo-500 w-6 h-6" />  
+                    </Link>
+                    <Link
+                     href={"/add-blog"}
+                      className="flex mt-4 items-center cursor-pointer hover:text-black hover:font-semibold"
+                    >
+                      Add Blogs{" "}
+                      <BiMessageAdd className="ml-3 font-light text-indigo-500 w-6 h-6" />
+                    </Link>
                   </div>
                 </div>
               </div>

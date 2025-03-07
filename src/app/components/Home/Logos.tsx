@@ -12,6 +12,24 @@ const LogosArray = [
     image: "logo3.png",
   },
   {
+    image: "logo1.png",
+  },
+  {
+    image: "logo2.png",
+  },
+  {
+    image: "logo3.png",
+  },
+  {
+    image: "logo1.png",
+  },
+  {
+    image: "logo2.png",
+  },
+  {
+    image: "logo3.png",
+  },
+  {
     image: "logo4.png",
   },
   {
@@ -22,12 +40,13 @@ const LogosArray = [
 function Logos() {
   return (
     <div className="text-center space-y-8 container mx-auto pt-32">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+      <div className="flex overflow-x-auto gap-8 items-center">
         <div className="mx-auto">
           <p className="text-gray-400 text-lg">We are</p>
           <h2 className="text-2xl font-bold mb-8 text-gray-500">Featured in</h2>
         </div>
-        {LogosArray.map((logo, index) => (
+        {/* <div className="overflow-x-auto"> */}
+          {LogosArray.map((logo, index) => (
           <div key={index} className="mx-auto flex">
             <div className="w-[20.58px] h-[20.54px]">
               <Image
@@ -42,6 +61,8 @@ function Logos() {
             </p>
           </div>
         ))}
+        {/* </div> */}
+        
       </div>
     </div>
   );

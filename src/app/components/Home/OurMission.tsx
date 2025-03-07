@@ -19,7 +19,7 @@ export default function OurMission() {
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <a
-              href="#"
+              href="/about"
               className="inline-flex items-center text-purple-800 font-semibold hover:opacity-80 transition-opacity"
             >
               Read More {">"}

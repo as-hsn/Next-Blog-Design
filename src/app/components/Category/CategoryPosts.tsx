@@ -1,14 +1,96 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { BlogPostsData } from "../../../../public/data/blog-posts";
 import { CategoriesData } from "../../../../public/data/category-cards";
+import { useEffect, useState } from "react";
+import ShowToast from "../ShowToast";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+
+interface BlogPost {
+  id: number;
+  title: string;
+  body: string;
+  blogImgUrl: string;
+  category: string;
+}
 
 export default function CategoryPosts() {
+  const searchParams = useSearchParams();
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const pathname = usePathname();
+  const router = useRouter();
+  const [totalNumberBlogs, setTotalNumberBlogs] = useState(0);
+  const blogsPerPage = Number(process.env.NEXT_PUBLIC_BLOGS_PER_PAGE);
+  const page = parseInt(searchParams.get("page") || "1");
+  const category = searchParams.get("category");
+  const [categorySelected, setCategorySelected] = useState(false);
+
+  async function getBlogs() {
+    if (categorySelected || category) {
+      setCategorySelected(true)
+      const res = await fetch(`/api/blogs?category=${category}&page=${page}`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBlogs(data.blogs);
+        setTotalNumberBlogs(data.totalBlogsCount);
+      } else {
+        ShowToast(data.message, "error");
+      }
+    } else {
+      const res = await fetch(`/api/blogs?page=${page}`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setBlogs(data.blogs);
+        setTotalNumberBlogs(data.totalBlogsCount);
+      } else {
+        ShowToast(data.message, "error");
+      }
+    }
+  }
+
+  useEffect(() => {
+    const element = document.querySelector(".target-scroll");
+    if (element && category) {
+      window.scrollTo({
+        top: element.getBoundingClientRect().top + window.scrollY - 100, // Scroll relative to the element
+        behavior: "smooth",
+      });
+}
+    getBlogs();
+  }, [page, category]);
+
+  const updatePageNumber = (newPage: number) => {
+    const maxPage = Math.ceil(totalNumberBlogs / blogsPerPage);
+    if (newPage < 1 || newPage > maxPage) return;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage.toString());
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const updateCategory = (newCategory: string) => {
+    if (category === newCategory) {
+      const params = new URLSearchParams(searchParams);
+      params.delete("category");
+      params.set("page", "1");
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    }else{
+      const params = new URLSearchParams(searchParams);
+      params.set("category", newCategory.toString());
+      params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    }
+  };
+
   return (
     <div className="w-full block lg:flex xl:flex max-w-7xl mx-auto px-20 gap-28">
       {/* Left Side Div */}
       <div className="space-y-8 lg:max-w-[65%]">
-        {BlogPostsData.map((post, index) => (
+        {blogs.map((post, index) => (
           <Link
             href={`blog-post/${post.title}`}
             key={index}
@@ -17,7 +99,7 @@ export default function CategoryPosts() {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
               <div className="w-full max-w-[352px] mx-auto sm:mx-0 sm:w-48 sm:h-48 md:w-64 lg:w-[15rem] lg:h-[15rem] aspect-[4/3] relative overflow-hidden">
                 <Image
-                  src={post.image}
+                  src={post.blogImgUrl}
                   alt={post.title}
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -38,19 +120,56 @@ export default function CategoryPosts() {
             </div>
           </Link>
         ))}
+        <div className="mt-12 flex justify-center gap-4">
+          <button
+            onClick={() => updatePageNumber(page - 1)}
+            disabled={page <= 1}
+            className={`px-4 py-2 text-lg font-medium ${
+              page <= 1
+                ? "text-gray-400 cursor-not-allowed"
+                : "text-gray-600 hover:scale-110 hover:text-gray-700"
+            }`}
+          >
+            {"<"} Prev
+          </button>
+          <p className="py-2 text-gray-600 font-semibold text-lg">{page}</p>
+          <button
+            onClick={() => updatePageNumber(page + 1)}
+            disabled={page >= Math.ceil(totalNumberBlogs / blogsPerPage)}
+            className={`px-4 py-2 text-lg font-medium ${
+              page >= Math.ceil(totalNumberBlogs / blogsPerPage)
+                ? "text-gray-400 cursor-not-allowed"
+                : "text-gray-600 hover:scale-110 hover:text-gray-700"
+            }`}
+          >
+            Next {">"}
+          </button>
+        </div>
       </div>
       {/* Right Side Div */}
       <div className="lg:max-w-[30%] md:gap-20 md:flex md:mt-16 lg:mt-0 lg:block lg:mr-[6rem]">
         {/* Categories Div */}
         <div className="mb-12 mt-14 md:mt-0 md:min-w-[40%]">
-          <h1 className="text-black font-semibold text-3xl lg:mb-8 mb-12">
+          <h1 className="text-black font-semibold text-3xl lg:mb-8 mb-12 target-scroll">
             Categories
           </h1>
           <div className="grid grid-cols-1 gap-4">
-            {CategoriesData.map((category, index) => (
+            {CategoriesData.slice(0, 4).map((innerCategory, index) => (
               <div
+                onClick={() => {
+                  updateCategory(innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase());
+                  if (categorySelected && category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()) {
+                    setCategorySelected(false);
+                  } else {
+                    setCategorySelected(true);
+                  }
+                }}
                 key={index}
-                className="p-4 border-2 transition-all hover:bg-yellow-400 bg-white border-gray-200 min-w-60"
+                className={`p-4 border-2 transition-all hover:bg-yellow-400 bg-white border-gray-200 min-w-60 cursor-pointer ${
+                  categorySelected &&
+                  category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase() &&
+                  "bg-yellow-400"
+                }`}
               >
                 <div className="flex">
                   <div
@@ -59,14 +178,14 @@ export default function CategoryPosts() {
                       "
                   >
                     <Image
-                      src={`/assets/category/${category.icon}`}
+                      src={`/assets/category/${innerCategory.icon}`}
                       width={20}
                       height={20}
                       alt="icons .."
                     ></Image>
                   </div>
                   <h3 className="text-xl pt-[0.5rem] pl-4 font-semibold text-slate-900">
-                    {category.title}
+                    {innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()}
                   </h3>
                 </div>
               </div>
@@ -75,34 +194,76 @@ export default function CategoryPosts() {
         </div>
         {/* Tags Div */}
         <div className="md:min-w-[50%]">
-          <h1 className="text-black text-center md:text-left  font-semibold text-3xl mb-10">All Tags</h1>
+          <h1 className="text-black text-center md:text-left  font-semibold text-3xl mb-10">
+            All Tags
+          </h1>
           <div className="w-auto md:w-24 text-center">
             <div className="flex gap-3 mb-4 justify-center md:justify-self-start">
-              <p className="text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm">
-                Buisness
-              </p>
+              {CategoriesData.slice(0, 2).map((innerCategory, index) => (
+                <p
+                  onClick={() => {
+                    updateCategory(innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase());
+                    if (categorySelected && category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()) {
+                      setCategorySelected(false);
+                    } else {
+                      setCategorySelected(true);
+                    }
+                  }}
+                  className={`text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm cursor-pointer ${
+                    categorySelected &&
+                    category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase() &&
+                    "bg-yellow-400 text-stone-800 border-none"
+                  }`}
+                  key={index}
+                >
+                  {innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()}
+                </p>
+              ))}
+            </div>
 
-              <p className="text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm">
-                Experience
-              </p>
+            <div className="flex gap-3 mb-4 justify-center md:justify-self-start">
+              {CategoriesData.slice(2, 4).map((innerCategory, index) => (
+                <p
+                  onClick={() => {
+                    updateCategory(innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase());
+                    if (categorySelected && category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()) {
+                      setCategorySelected(false);
+                    } else {
+                      setCategorySelected(true);
+                    }
+                  }}
+                  className={`text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm cursor-pointer ${
+                    categorySelected &&
+                    category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase() &&
+                    "bg-yellow-400 text-stone-800 border-none"
+                  }`}
+                  key={index}
+                >
+                  {innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()}
+                </p>
+              ))}
             </div>
             <div className="flex gap-3 mb-4 justify-center md:justify-self-start">
-              <p className="text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm">
-                Screen
-              </p>
-
-              <p className="text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm">
-                Technology
-              </p>
-            </div>
-            <div className="flex gap-3 mb-4 justify-center md:justify-self-start">
-              <p className="text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm">
-                Marketing
-              </p>
-
-              <p className="text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm">
-                Life
-              </p>
+              {CategoriesData.slice(4, 6).map((innerCategory, index) => (
+                <p
+                  onClick={() => {
+                    updateCategory(innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase());
+                    if (categorySelected && category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()) {
+                      setCategorySelected(false);
+                    } else {
+                      setCategorySelected(true);
+                    }
+                  }}
+                  className={`text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm cursor-pointer ${
+                    categorySelected &&
+                    category === innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase() &&
+                    "bg-yellow-400 text-stone-800 border-none"
+                  }`}
+                  key={index}
+                >
+                  {innerCategory.title.toLowerCase().toLowerCase().toLowerCase().toLowerCase().toLowerCase()}
+                </p>
+              ))}
             </div>
           </div>
         </div>

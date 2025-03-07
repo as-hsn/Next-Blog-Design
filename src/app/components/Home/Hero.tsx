@@ -45,7 +45,7 @@ export default function BlogHeader() {
             </p>
 
             <Link
-              href="#"
+              href="/category?category=startup"
               className="inline-flex items-center px-6 py-3 bg-yellow-400 hover:bg-yellow-500 transition-colors text-gray-900 font-semibold rounded-sm group-hover:shadow-lg"
             >
               Read More <span className="ml-2">{">"}</span>

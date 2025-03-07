@@ -19,4 +19,14 @@ export const CategoriesData = [
       title: "Technology",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
     },
+    {
+      icon: "technology.png",
+      title: "Marketing",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+    },
+    {
+      icon: "technology.png",
+      title: "Life",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+    },
   ];

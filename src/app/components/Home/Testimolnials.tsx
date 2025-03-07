@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 
 export default function Testimonials() {
   return (
@@ -40,10 +39,7 @@ export default function Testimonials() {
                   <p className="text-gray-500">New york, USA</p>
                 </div>
               </div>
-              <div className="flex gap-4 mt-4 sm:mt-0">
-                <CiCircleChevLeft className="text-4xl sm:text-5xl text-gray-500 cursor-pointer" />
-                <CiCircleChevRight className="text-4xl sm:text-5xl text-gray-500 cursor-pointer" />
-              </div>
+              
             </div>
           </div>
         </div>

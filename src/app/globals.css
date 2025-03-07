@@ -43,9 +43,23 @@ a.active hr{
   font-style: normal;
 }
 
+
+ /* Scrollbar styling start */
+ 
+/* Global Scrollbar Styling */
+
 *::-webkit-scrollbar {
-  display: none;            
+  width: 8px;
+  height: 8px;
 }
+
+* {
+  scrollbar-color: rgb(255, 186, 57) #fef3c7;
+  scrollbar-width: thin;
+}
+
+ /* Scrollbar styling end */
+
 
 @media (min-width: 1340px) and (max-width: 1700px) {
   .custom-style-navbar {

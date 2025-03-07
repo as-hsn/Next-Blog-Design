@@ -1,8 +1,6 @@
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-// import jwt from "jsonwebtoken";
-// import { serialize } from "cookie";
 import { generateAccessToken,generateRefreshToken } from "@/utils/auth";
 
 export async function POST(req: Request) {
