@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ShowToast from "../ShowToast";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface BlogPost {
   id: number;
@@ -15,17 +17,28 @@ interface BlogPost {
 
 export default function FeaturedPosts() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const page = 1;
 
   async function getBlogs() {
-    const res = await fetch(`/api/blogs?page=${page}&dataPerPage=4`, {
-      method: "GET",
-    });
-    const data = await res.json();
-    if (data.success) {
-      setBlogs(data.blogs);
-    } else {
-      ShowToast(data.message, "error");
+    setIsLoading(true);
+    try {
+      const res = await fetch(`/api/blogs?page=${page}&dataPerPage=4`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBlogs(data.blogs);
+        console.log("🚀 ~ getBlogs ~ data:", data)
+        
+      } else {
+        ShowToast(data.message, "error");
+      }
+    } catch (error) {
+      void error;
+      ShowToast("Failed to fetch blogs", "error");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -41,7 +54,15 @@ export default function FeaturedPosts() {
             Featured Post
           </h2>
           <div>
-            {blogs &&
+            {isLoading || blogs.length === 0 ? (
+              <div className="border-[0.7px] border-solid border-gray-500 p-5 border-opacity-35 rounded-sm">
+                <Skeleton height={200} className="mb-6" />
+                <Skeleton count={3} className="mb-3" />
+                <Skeleton count={1} className="text-[24px] mb-3" />
+                <Skeleton count={3} />
+                <Skeleton width={100} className="mt-6" />
+              </div>
+            ) : (
               blogs.slice(0, 1).map((blog, index) => (
                 <div
                   key={index}
@@ -78,7 +99,8 @@ export default function FeaturedPosts() {
                     Read More {">"}
                   </Link>
                 </div>
-              ))}
+              ))
+            )}
           </div>
         </div>
 
@@ -93,22 +115,30 @@ export default function FeaturedPosts() {
             </Link>
           </div>
           <div className="space-y-6">
-            {blogs &&
-              blogs.map((blog, index) => (
-                <div key={index}>
-                  <Link href={`blog-post/${blog.title}`} key={index}>
-                    <div className="rounded-lg bg-transparent p-6 hover:bg-yellow-500/10">
-                      <div className="flex items-center gap-2 text-[14px] text-gray-500 mb-2">
-                        <span>By {blog.authorName}</span>
-                        <span>{blog.postedDate.split("T")[0]}</span>
-                      </div>
-                      <h3 className="text-[20px] font-bold text-black w-[80%] cursor-pointer">
-                        {blog.title}
-                      </h3>
+            {isLoading // Skeleton for All Posts section
+              ? Array(4)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div key={index} className="p-6">
+                      <Skeleton count={2} />
+                      <Skeleton height={20} className="mt-2" />
                     </div>
-                  </Link>
-                </div>
-              ))}
+                  ))
+              : blogs.map((blog, index) => (
+                  <div key={index}>
+                    <Link href={`blog-post/${blog.title}`} key={index}>
+                      <div className="rounded-lg bg-transparent p-6 hover:bg-yellow-500/10">
+                        <div className="flex items-center gap-2 text-[14px] text-gray-500 mb-2">
+                          <span>By {blog.authorName}</span>
+                          <span>{blog.postedDate.split("T")[0]}</span>
+                        </div>
+                        <h3 className="text-[20px] font-bold text-black w-[80%] cursor-pointer">
+                          {blog.title}
+                        </h3>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
           </div>
         </div>
       </div>

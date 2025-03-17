@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
-    const slug = searchParams.get("slug"); 
-    
+    const slug = searchParams.get("slug");
+
     if (slug) {
       const blog = await prisma.blog.findFirst({
         where: { title: slug },
+        include: { comments: true }
       });
-
       if (!blog) {
         return NextResponse.json(
           { success: false, message: "Blog not found" },

@@ -250,11 +250,11 @@ export default function UploadForm() {
               <div className="flex gap-x-2">
                 <button
                   onClick={() => {
-                    handleUpdateClick(blog)
+                    handleUpdateClick(blog);
                     const element = document.querySelector(".scroll-target");
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" });
+                    }
                   }}
                   className="px-3 py-1 bg-yellow-500 text-white rounded-lg w-fit"
                 >

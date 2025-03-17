@@ -20,6 +20,7 @@ model User {
   Gender String?
   Birthdate String?
   blogs        Blog[]
+  comments     Comment[]
 }
 
 model EmailOtp {
@@ -32,17 +33,30 @@ model EmailOtp {
 }
 
 model Blog {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   userId         String
   category       String
   title          String
   body           String
   authorName     String
   authorImageUrl String?
-  postedDate     DateTime @default(now())
-  blogImgUrl     String? // Optional image URL field
-  User           User     @relation(fields: [userId], references: [id])
+  postedDate     DateTime  @default(now())
+  blogImgUrl     String?  // Optional image URL field
+  User           User      @relation(fields: [userId], references: [id])
+  comments       Comment[]
 }
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  blogId    Int
+  userId    String
+  userName  String 
+  content   String  
+  createdAt DateTime @default(now())
+  Blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id])
+}
+
 
 model ContactForm {
   id             Int      @id @default(autoincrement())
