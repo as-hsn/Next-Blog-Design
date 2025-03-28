@@ -93,6 +93,7 @@ export default function FeaturedPosts() {
                   </p>
 
                   <Link
+                    data-id="blog_read_more"
                     href={`blog-post/${blog.title}`}
                     className="inline-block px-6 py-2.5 bg-yellow-400 hover:bg-yellow-500 text-black rounded-md font-medium transition-colors"
                   >

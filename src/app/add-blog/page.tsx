@@ -222,7 +222,10 @@ export default function UploadForm() {
         )}
       </Formik>
 
-      <div className="max-w-2xl bg-white shadow-2xl mx-auto p-4 space-y-6 mt-8 w-full">
+      <div
+        className="max-w-2xl bg-white shadow-2xl mx-auto p-4 space-y-6 mt-8 w-full"
+        data-id="author_blogs_div"
+      >
         <h2 className="text-lg mb-4 font-semibold text-gray-700 text-center">
           Your Blogs
         </h2>

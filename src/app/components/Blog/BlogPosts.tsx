@@ -98,7 +98,7 @@ export default function BlogPosts() {
 ))}
 
   </div>
-) : blogs.length > 0 && (<div className="space-y-8">
+) : blogs.length > 0 && (<div className="space-y-8" data-id="blogs_parent_div">
   {blogs.map((post, index) => (
     <Link
       href={`blog-post/${post.title}`}

@@ -1,25 +1,22 @@
-import { toast, ToastOptions, Id } from 'react-toastify';
+  import { toast, ToastOptions} from "react-toastify";
 
-let activeToastId: Id | undefined; 
 
-type ToastType = 'info' | 'success' | 'warning' | 'error';
+  type ToastType = "info" | "success" | "warning" | "error";
 
-const ShowToast = (message: string, type?: ToastType): void => {
-  if (activeToastId !== undefined && toast.isActive(activeToastId)) {
-    return; 
-  }
+  const ShowToast = (message: string, type?: ToastType): void => {
 
-  const toastOptions: ToastOptions = {
-    autoClose: 2000,
-    draggable: true,
+    const toastOptions: ToastOptions = {
+      autoClose: 2000,
+      draggable: true,
+      className: "custom-toast",
+    };
+
+    if (type && ["info", "success", "warning", "error"].includes(type)) {
+      toast[type](message, toastOptions);
+    } else {
+      toast(message, toastOptions);
+    }    
+
   };
 
-  // Display toast with appropriate type
-  if (type && toast[type]) {
-    activeToastId = toast[type](message, toastOptions);
-  } else {
-    activeToastId = toast(message, toastOptions);
-  }
-};
-
-export default ShowToast;
+  export default ShowToast;

@@ -13,23 +13,25 @@ export async function POST(req: NextRequest) {
 
     if (!email) {
       return NextResponse.json(
-        { success: false, error: "Email is required" },
+        { success: false, message: "Email is required" },
         { status: 400 }
       );
     }
 
-     const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
     if (!existingUser) {
       return NextResponse.json(
-        { success: false, error: "Your email is not registered. Please register first." },
+        {
+          success: false,
+          message: "Your email is not registered. Please register first.",
+        },
         { status: 400 }
       );
     }
 
-    
     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // Validity 1 hour
 
@@ -51,7 +53,9 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const resetLink = `http://localhost:3000/reset-password?email=${encodeURIComponent(email)}`;
+    const resetLink = `http://localhost:3000/reset-password?email=${encodeURIComponent(
+      email
+    )}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -72,10 +76,12 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
-    
 
     return NextResponse.json(
-      { success: true, message: "Password reset PIN sent successfully to your email!" },
+      {
+        success: true,
+        message: "Password reset PIN sent successfully to your email!",
+      },
       { status: 200 }
     );
   } catch (error) {

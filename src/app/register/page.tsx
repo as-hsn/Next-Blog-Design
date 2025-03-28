@@ -26,7 +26,7 @@ function Page() {
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, "Name must contain 4 characters!")
+      .min(3, "Name must contain 3 characters!")
       .required("Full Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
@@ -48,13 +48,12 @@ function Page() {
     password: string,
     otp: string
   ) => {
-    setSendResetOtp(true)
     try {
+      setSendResetOtp(true);
       if (!otpEmail) {
         ShowToast("Email not found.", "error");
         return;
       }
-
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,17 +68,16 @@ function Page() {
       const data = await res.json();
 
       if (data.success) {
-        setSendResetOtp(false)
         ShowToast(data.message || "OTP resent successfully", "success");
         settimer(60);
       } else {
-        setSendResetOtp(false)
         ShowToast(data.message || "Failed to resend OTP", "error");
       }
     } catch (error) {
-      setSendResetOtp(false)
       console.error("Resend OTP Error:", error);
       ShowToast("Something went wrong. Please try again.", "error");
+    } finally {
+      setSendResetOtp(false);
     }
   };
 
@@ -132,14 +130,16 @@ function Page() {
                   data.message ? data.message : "SignUp Successful",
                   "success"
                 );
-                Object.assign(values, {
-                  email: "",
-                  password: "",
-                  confirm_password: "",
-                  name: "",
-                  otp: "",
-                });
-                router.refresh()
+                setTimeout(() => {
+                  Object.assign(values, {
+                    email: "",
+                    password: "",
+                    confirm_password: "",
+                    name: "",
+                    otp: "",
+                  });
+                }, 200);
+                router.refresh();
               }
             } catch (error) {
               console.error("Signup Error:", error);
@@ -275,9 +275,7 @@ function Page() {
                             : "text-indigo-600 hover:underline"
                         }`}
                       >
-                        {timer > 0
-                          ? `Resend OTP in ${timer}s`
-                          : "Resend OTP"}
+                        {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
                       </span>
                     </div>
                   </div>

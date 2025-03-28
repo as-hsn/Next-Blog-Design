@@ -52,7 +52,7 @@ function ResetPassword() {
       const data = await response.json();
 
       if (data.success) {
-        ShowToast("Password reset successfully!", "success");
+        ShowToast(data.message, "success");
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);

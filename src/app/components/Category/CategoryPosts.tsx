@@ -28,7 +28,7 @@ export default function CategoryPosts() {
   const [categorySelected, setCategorySelected] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getBlogs =  useCallback(async () => {
+  const getBlogs = useCallback(async () => {
     try {
       if (category) {
         setCategorySelected(true);
@@ -64,9 +64,9 @@ export default function CategoryPosts() {
       void error;
       ShowToast("something went wrong", "error");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  },[category,page])
+  }, [category, page]);
 
   useEffect(() => {
     const element = document.querySelector(".target-scroll");
@@ -205,15 +205,7 @@ export default function CategoryPosts() {
             {CategoriesData.slice(0, 4).map((innerCategory, index) => (
               <div
                 onClick={() => {
-                  updateCategory(
-                    innerCategory.title
-                      .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()
-                  );
+                  updateCategory(innerCategory.title.toLowerCase());
                   if (
                     categorySelected &&
                     category === innerCategory.title.toLowerCase()
@@ -246,10 +238,7 @@ export default function CategoryPosts() {
                   <h3 className="text-xl pt-[0.5rem] pl-4 font-semibold text-slate-900">
                     {innerCategory.title
                       .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()
-                      .toLowerCase()}
+                     }
                   </h3>
                 </div>
               </div>
@@ -266,23 +255,10 @@ export default function CategoryPosts() {
               {CategoriesData.slice(0, 2).map((innerCategory, index) => (
                 <p
                   onClick={() => {
-                    updateCategory(
-                      innerCategory.title
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                    );
+                    updateCategory(innerCategory.title.toLowerCase());
                     if (
                       categorySelected &&
-                      category ===
-                        innerCategory.title
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
+                      category === innerCategory.title.toLowerCase()
                     ) {
                       setCategorySelected(false);
                     } else {
@@ -291,23 +267,12 @@ export default function CategoryPosts() {
                   }}
                   className={`text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm cursor-pointer ${
                     categorySelected &&
-                    category ===
-                      innerCategory.title
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase() &&
+                    category === innerCategory.title.toLowerCase() &&
                     "bg-yellow-400 text-stone-800 border-none"
                   }`}
                   key={index}
                 >
-                  {innerCategory.title
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()}
+                  {innerCategory.title.toLowerCase()}
                 </p>
               ))}
             </div>
@@ -316,23 +281,10 @@ export default function CategoryPosts() {
               {CategoriesData.slice(2, 4).map((innerCategory, index) => (
                 <p
                   onClick={() => {
-                    updateCategory(
-                      innerCategory.title
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                    );
+                    updateCategory(innerCategory.title.toLowerCase());
                     if (
                       categorySelected &&
-                      category ===
-                        innerCategory.title
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
+                      category === innerCategory.title.toLowerCase()
                     ) {
                       setCategorySelected(false);
                     } else {
@@ -341,23 +293,12 @@ export default function CategoryPosts() {
                   }}
                   className={`text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm cursor-pointer ${
                     categorySelected &&
-                    category ===
-                      innerCategory.title
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase() &&
+                    category === innerCategory.title.toLowerCase() &&
                     "bg-yellow-400 text-stone-800 border-none"
                   }`}
                   key={index}
                 >
-                  {innerCategory.title
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()}
+                  {innerCategory.title.toLowerCase()}
                 </p>
               ))}
             </div>
@@ -365,23 +306,10 @@ export default function CategoryPosts() {
               {CategoriesData.slice(4, 6).map((innerCategory, index) => (
                 <p
                   onClick={() => {
-                    updateCategory(
-                      innerCategory.title
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                    );
+                    updateCategory(innerCategory.title.toLowerCase());
                     if (
                       categorySelected &&
-                      category ===
-                        innerCategory.title
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
-                          .toLowerCase()
+                      category === innerCategory.title.toLowerCase()
                     ) {
                       setCategorySelected(false);
                     } else {
@@ -390,23 +318,12 @@ export default function CategoryPosts() {
                   }}
                   className={`text-gray-500 border-2 border-gray-300 rounded-full w-fit py-3 font-semibold px-9 text-sm cursor-pointer ${
                     categorySelected &&
-                    category ===
-                      innerCategory.title
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase()
-                        .toLowerCase() &&
+                    category === innerCategory.title.toLowerCase() &&
                     "bg-yellow-400 text-stone-800 border-none"
                   }`}
                   key={index}
                 >
-                  {innerCategory.title
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()
-                    .toLowerCase()}
+                  {innerCategory.title.toLowerCase()}
                 </p>
               ))}
             </div>

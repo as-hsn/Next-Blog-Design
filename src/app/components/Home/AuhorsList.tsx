@@ -39,7 +39,7 @@ export default function AuthorsList() {
         List of Authors
       </h1>
 
-      <div className="flex gap-6 overflow-x-auto pb-4 px-4">
+      <div className="flex gap-6 overflow-x-auto pb-4 px-4" data-id="authors_parent_div">
         {isLoading ? (
           Array(4).fill(0).map((_,index) =>  (
             <div 

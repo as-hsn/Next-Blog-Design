@@ -12,8 +12,8 @@ interface FormData {
   address: string;
   Gender: string;
   Birthdate: string;
-  image: string; 
-  imageFile?: File | null; 
+  image: string;
+  imageFile?: File | null;
 }
 
 const ProfilePage = () => {
@@ -28,9 +28,8 @@ const ProfilePage = () => {
     Gender: "",
     Birthdate: "",
     image: "",
-    imageFile: null, 
+    imageFile: null,
   });
-
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,7 +37,7 @@ const ProfilePage = () => {
       setFormData((prev) => ({
         ...prev,
         image: URL.createObjectURL(file),
-        imageFile: file, 
+        imageFile: file,
       }));
     }
   };
@@ -68,7 +67,7 @@ const ProfilePage = () => {
     }
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await fetch("/api/auth/update-user", {
         method: "PUT",
         body: sendFormData,
@@ -78,17 +77,17 @@ const ProfilePage = () => {
       if (data.success) {
         setFormData((prev) => ({
           ...prev,
-          image: data.user.image, 
-          imageFile: null, 
+          image: data.user.image,
+          imageFile: null,
         }));
-        ShowToast('Profile Updated...')
+        ShowToast("Profile Updated...");
       }
       setIsEditing(false);
     } catch (error) {
-      console.log(error)
-      ShowToast('Internel server error')
-    }finally{
-      setLoading(false)
+      console.log(error);
+      ShowToast("Internel server error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,12 +96,11 @@ const ProfilePage = () => {
     try {
       const res = await fetch(`/api/auth/user`, { method: "GET" });
       const data = await res.json();
-      console.log(data);
       if (data.success) {
         setFormData((prev) => ({
           ...prev,
           ...data.user,
-          imageFile: null, 
+          imageFile: null,
         }));
       }
     } catch (error) {
@@ -124,7 +122,9 @@ const ProfilePage = () => {
             height={144}
             width={144}
             alt="Profile Image"
-            className={`rounded-lg w-36 h-36 object-cover ${isEditing && "opacity-70"}`}
+            className={`rounded-lg w-36 h-36 object-cover ${
+              isEditing && "opacity-70"
+            }`}
           />
 
           {/* Upload Icon */}
@@ -160,7 +160,9 @@ const ProfilePage = () => {
             className="font-medium text-3xl text-[#262626] mt-4 text-center border rounded p-1"
           />
         ) : (
-          <p className="font-medium text-3xl text-[#262626] mt-4">{formData.name}</p>
+          <p className="font-medium text-3xl text-[#262626] mt-4">
+            {formData.name}
+          </p>
         )}
 
         <hr className="bg-[#ADADAD] h-[1px] border-none" />
@@ -218,7 +220,9 @@ const ProfilePage = () => {
                 onChange={handleInputChange}
                 className="text-gray-500 ml-4 border rounded p-1 w-40"
               >
-                <option disabled value="">Select Gender</option>
+                <option disabled value="">
+                  Select Gender
+                </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -252,21 +256,21 @@ const ProfilePage = () => {
               <button
                 onClick={handleSave}
                 disabled={loading}
-                className={`border-[1px] border-gray-500 px-8 py-2 rounded-full text-black transition-all flex ${loading && 'font-semibold cursor-not-allowed'}`}
+                className={`border-[1px] border-gray-500 px-8 py-2 rounded-full text-black transition-all flex ${
+                  loading && "font-semibold cursor-not-allowed"
+                }`}
               >
-                {loading ? 'Save Changes...'  : 'Save'} {loading && (
-                  <div className="ml-1 loader"></div>
-                )}
+                {loading ? "Save Changes..." : "Save"}{" "}
+                {loading && <div className="ml-1 loader"></div>}
               </button>
               {!loading && (
                 <button
-                onClick={() => setIsEditing(false)}
-                className="border border-gray-500 px-8 py-2 rounded-full text-black transition-all"
-              >
-                Cancel
-              </button>
+                  onClick={() => setIsEditing(false)}
+                  className="border border-gray-500 px-8 py-2 rounded-full text-black transition-all"
+                >
+                  Cancel
+                </button>
               )}
-              
             </>
           ) : (
             <button

@@ -10,11 +10,10 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { PiUserCircleLight } from "react-icons/pi";
 import { IoIosLogOut } from "react-icons/io";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import ShowToast from "./ShowToast";
 import { BiMessageAdd } from "react-icons/bi";
 import { LuUserPen } from "react-icons/lu";
-
 
 function Header() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -39,14 +38,14 @@ function Header() {
       const data = await response.json();
       Cookies.remove("accessToken", { path: "/" });
       Cookies.remove("refreshToken", { path: "/" });
-      setUser(false)
+      setUser(false);
       ShowToast(data.message);
-      router.refresh()
+      router.refresh();
     } catch (error) {
       console.error("🚀 Logout error:", error);
     }
   }
-  
+
   return (
     <>
       <div className="flex items-center justify-between py-5 font-medium bg-customDark overflow-x-hidden">
@@ -59,7 +58,10 @@ function Header() {
             className="w-32 sm:w-36"
           />
         </Link>
-        <ul className="hidden md:flex gap-3 lg:gap-5 text-sm text-gray-700  md:-mr-4 lg:-mr-[20rem] xl:-mr-[31rem] custom-style-navbar items-center">
+        <ul
+          className="hidden md:flex gap-3 lg:gap-5 text-sm text-gray-700  md:-mr-4 lg:-mr-[20rem] xl:-mr-[31rem] custom-style-navbar items-center"
+          data-id="navbar"
+        >
           <Link
             className={`${
               pathname === "/" && "active"
@@ -123,16 +125,16 @@ function Header() {
                       Logout{" "}
                       <IoIosLogOut className="ml-3 text-red-500 w-6 h-6" />
                     </p>
-                   
+
                     <Link
-                     href={"/profile"}
+                      href={"/profile"}
                       className="flex mt-4 items-center cursor-pointer hover:text-black hover:font-semibold"
                     >
                       Profile{" "}
-                      <LuUserPen className="ml-3 text-indigo-500 w-6 h-6" />  
+                      <LuUserPen className="ml-3 text-indigo-500 w-6 h-6" />
                     </Link>
                     <Link
-                     href={"/add-blog"}
+                      href={"/add-blog"}
                       className="flex mt-4 items-center cursor-pointer hover:text-black hover:font-semibold"
                     >
                       Add Blogs{" "}

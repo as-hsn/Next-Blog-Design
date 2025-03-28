@@ -1,0 +1,237 @@
+{
+  "registrationResponse": {
+    "pendingRegistration": {
+      "statusCode": 200,
+      "body": {
+        "success": "pending",
+        "message": "An OTP has been sent to your email!"
+      }
+    },
+    "validOtp": {
+      "statusCode": 200,
+      "body": {
+        "success": true,
+        "message": "You are now logged in"
+      }
+    },
+    "invalidOtp": {
+      "statusCode": 400,
+      "body": {
+        "success": false,
+        "message": "Invalid OTP"
+      }
+    }
+  },
+  "loginResponse": {
+    "validUser": {
+      "statusCode": 200,
+      "body": {
+        "success": true,
+        "message": "You are now logged In"
+      }
+    },
+    "invalidUser": {
+      "statusCode": 401,
+      "body": {
+        "success": false,
+        "message": "Invalid email or password"
+      }
+    }
+  },
+  "authorsResponse": {
+    "getAuthors": {
+      "success": true,
+      "authors": [
+        {
+          "id": 1,
+          "image": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741280681/nextjs_uploads/l9hfx2at2cojyu3crhy3.png",
+          "name": "Author name 1"
+        },
+        {
+          "id": 2,
+          "image": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741282384/nextjs_uploads/fwiggwlvzsjdxuulf62w.png",
+          "name": "Author name 2"
+        },
+        {
+          "id": 3,
+          "image": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741282327/nextjs_uploads/e37us8hcpxdynfb7pqdl.png",
+          "name": "Author name 3"
+        },
+        {
+          "id": 4,
+          "image": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741280681/nextjs_uploads/l9hfx2at2cojyu3crhy3.png",
+          "name": "Author name 4"
+        }
+      ]
+    },
+    "authorsDetail": {
+      "success": true,
+      "user": {
+        "id": 1,
+        "image": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741280681/nextjs_uploads/l9hfx2at2cojyu3crhy3.png",
+        "name": "Author name 1",
+        "Birthdate": "2025-03-04T15:47:27.339Z",
+        "_count": { "blogs": 2 }
+      },
+      "blogs": [
+        {
+          "id": 1,
+          "userId": "12121",
+          "title": "First Blog",
+          "body": "This is a test blog.",
+          "blogCount": "3",
+          "category": "business",
+          "postedDate": "2025-03-03 18:50:52.092",
+          "authorName": "testing 1",
+          "authorImageUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741280681/nextjs_uploads/l9hfx2at2cojyu3crhy3.png",
+          "blogImgUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741027867/nextjs_uploads/vjquwufw4mg92dqrvplz.avif"
+        }
+      ]
+    }
+  },
+  "blogsResponse": {
+    "getPaginatedBlogs": {
+      "success": true,
+      "blogs": [
+        {
+          "id": 1,
+          "title": "First Blog",
+          "body": "This is a test blog.",
+          "blogCount": "3",
+          "postedDate": "2025-03-03 18:50:52.092",
+          "authorName": "testing 1",
+          "blogImgUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741027867/nextjs_uploads/vjquwufw4mg92dqrvplz.avif"
+        },
+        {
+          "id": 2,
+          "title": "Second Blog",
+          "body": "Another test blog.",
+          "blogCount": "4",
+          "postedDate": "2025-03-03 18:50:52.092",
+          "authorName": "testing 2",
+          "blogImgUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741029590/nextjs_uploads/uxacfq5qltxxnlcmcwlk.jpg"
+        }
+      ],
+      "totalBlogsCount": 10
+    },
+    "blogDetail": {
+      "success": true,
+      "blog": {
+        "id": 1,
+        "title": "First Blog",
+        "body": "This is a test blog.",
+        "blogCount": "3",
+        "category": "buisness",
+        "postedDate": "2025-03-03 18:50:52.092",
+        "authorName": "testing 1",
+        "authorImageUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741280681/nextjs_uploads/l9hfx2at2cojyu3crhy3.png",
+        "blogImgUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741027867/nextjs_uploads/vjquwufw4mg92dqrvplz.avif",
+        "comments": [
+          {
+            "id": 1,
+            "userName": "Test",
+            "content": "This comment injected by cypress",
+            "createdAt": "23/1/2025T23:12:33"
+          }
+        ]
+      }
+    },
+    "getCategoryBlogs": {
+      "success": true,
+      "blogs": [
+        {
+          "id": 1,
+          "title": "First Blog",
+          "body": "This is a test blog.",
+          "blogCount": "3",
+          "postedDate": "2025-03-03 18:50:52.092",
+          "authorName": "testing 1",
+          "blogImgUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741027867/nextjs_uploads/vjquwufw4mg92dqrvplz.avif"
+        },
+        {
+          "id": 2,
+          "title": "Second Blog",
+          "body": "Another test blog.",
+          "blogCount": "4",
+          "postedDate": "2025-03-03 18:50:52.092",
+          "authorName": "testing 2",
+          "blogImgUrl": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741029590/nextjs_uploads/uxacfq5qltxxnlcmcwlk.jpg"
+        }
+      ]
+    }
+  },
+  "usersResponse": {
+    "getUserDetails": {
+      "success": true,
+      "user": {
+        "id": 1,
+        "name": "Test User",
+        "email": "hassanarif1471@gmail.com",
+        "image": "https://res.cloudinary.com/deeltv1ff/image/upload/v1741029590/nextjs_uploads/uxacfq5qltxxnlcmcwlk.jpg"
+      }
+    }
+  },
+  "contactFormResponse": {
+    "success": true,
+    "message": "Thank you! Your message has been received, and we'll respond shortly"
+  },
+  "resetPassword": {
+    "validUser": {
+      "statusCode": 200,
+      "body": {
+        "success": true,
+        "message": "Reset link sent! Check your email."
+      }
+    },
+    "invalidUser": {
+      "statusCode": 400,
+      "body": {
+        "success": false,
+        "message": "Your email is not registered. Please register first."
+      }
+    },
+    "invalidOtp": {
+      "statusCode": 400,
+      "body": {
+        "success": false,
+        "message": "Invalid or expired OTP"
+      }
+    },
+    "validOtp": {
+      "statusCode": 200,
+      "body": {
+        "success": true,
+        "message": "Password updated successfully!"
+      }
+    }
+  },
+  "userProfileData": {
+    "image": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "name": "John Doe",
+    "email": "hassanarif1471@gmail.com",
+    "phone": "0326-2908765",
+    "address": "House # 123, Street # 123, Lahore, Pakistan"
+  },
+  "addBlog": {
+    "getBlogData": [
+      {
+        "id": 1,
+        "title": "First blog title",
+        "blogImgUrl": "https://images.pexels.com/photos/920220/pexels-photo-920220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "body": "Never give up, no matter how hard life gets no matter how much pain you feel. Pain will eventually subside, nothing remains forever, so keep going and don't give up. ― Imran Khan"
+      },
+      {
+        "id": 2,
+        "title": "Second blog title",
+        "blogImgUrl": "https://images.pexels.com/photos/106144/rubber-duck-bath-duck-toys-costume-106144.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "body": "The more you study, the more you know; how less you know. ― Imran Khan"
+      },
+      {
+        "id": 3,
+        "title": "Third blog title",
+        "blogImgUrl": "https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "body": "Compromise for your Dream but NEVER Compromise on your Dream. ― Imran Khan"
+      }
+    ]
+  }
+}

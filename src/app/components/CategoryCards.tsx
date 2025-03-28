@@ -7,7 +7,7 @@ import Link from "next/link";
 
 function CategoryCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div data-id="category_cards_div" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {CategoriesData.map((category, index) => (
         <Link
           href={`category?page=1&category=${category.title.toLowerCase()}`}
