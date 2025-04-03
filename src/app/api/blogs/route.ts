@@ -15,8 +15,6 @@ export async function GET(req: NextRequest) {
       dataPerPage = Number(process.env.BLOGS_PER_PAGE);
     }
     const offset = (pageNumber - 1) * dataPerPage;
-    console.log("Query Params:", { offset, dataPerPage });
-
     let totalBlogs;
     let blogs;
 
@@ -45,7 +43,7 @@ export async function GET(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching blogs:", error);
+    void error
     return NextResponse.json(
       { success: false, message: "Failed to load blogs data" },
       { status: 500 }

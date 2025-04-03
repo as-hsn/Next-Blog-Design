@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({ success: true, message: "You have been logged out" });
   } catch (error) {
-    console.log(error)
+    void error
     return NextResponse.json({ success: false, error: "Invalid or expired token" }, { status: 401 });
   }
 }

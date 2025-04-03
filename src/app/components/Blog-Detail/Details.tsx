@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Header from "./Header";
@@ -30,7 +30,7 @@ interface BlogPost {
 interface Comment {
   id: string;
   content: string;
-  userName:string;
+  userName: string;
   text: string;
   createdAt: string;
   userId: string;
@@ -51,7 +51,7 @@ const Details = ({ slug }: BlogPostProps) => {
     string | null
   >(null);
   const [comments, setComments] = useState<Comment[]>([]);
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<userDetailsProps | null>(null);
   const token = Cookies.get("accessToken");
@@ -65,13 +65,14 @@ const Details = ({ slug }: BlogPostProps) => {
           id: decodedToken.id,
         });
       } catch (error) {
-        console.error("Invalid token", error);
+        void error
       }
     }
   }, [token]);
 
-  const fetchBlogBySlug = async () => {
+  const fetchBlogBySlug = useCallback(async () => {
     try {
+      setLoading(true);
       const res = await fetch(`/api/getBlog?slug=${encodeURIComponent(slug)}`);
       const data = await res.json();
       if (data.success) {
@@ -80,15 +81,17 @@ const Details = ({ slug }: BlogPostProps) => {
         setComments(data.blog.comments);
       }
     } catch (error) {
-      console.error("Error fetching blog:", error);
+      void error;
       ShowToast("Error fetching blog", "error");
+    } finally {
+      setLoading(true);
     }
-  };
+  },[slug]);
 
   useEffect(() => {
     if (!slug) return;
     fetchBlogBySlug();
-  }, [slug]);
+  }, [slug,fetchBlogBySlug]);
 
   const CommentSchema = Yup.object().shape({
     text: Yup.string()
@@ -124,7 +127,11 @@ const Details = ({ slug }: BlogPostProps) => {
       }
       fetchBlogBySlug();
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) {
+        ShowToast(error.message)
+      }else{
+        ShowToast("An unknown error occurred")
+      }
     }
   };
 
@@ -139,14 +146,18 @@ const Details = ({ slug }: BlogPostProps) => {
           commentId,
           userId: userDetails?.id,
         }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchBlogBySlug();
       }
-    )
-    const data = await res.json()
-    if (data.success) {
-      fetchBlogBySlug();
-    }
     } catch (error) {
-    console.log(error)}
+      if (error instanceof Error) {
+        ShowToast(error.message);
+      } else {
+        ShowToast("An unknown error occurred.");
+      }
+    }
   };
 
   return (
@@ -280,7 +291,10 @@ const Details = ({ slug }: BlogPostProps) => {
             </div>
           </>
         ) : (
-          <p className="text-center text-gray-600 mt-10">Blog not found</p>
+          loading && <div className="flex items-center justify-center h-screen">
+          <div className="loader-detail"></div>
+        </div>
+        
         )}
       </div>
 

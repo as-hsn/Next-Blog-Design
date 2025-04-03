@@ -9,7 +9,6 @@ import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
   const getRefreshToken = req.cookies.get("refreshToken")?.value;
-//   console.log("🚀 ~ GET ~ refreshToken:", getRefreshToken);
 
   try {
     if (!getRefreshToken) {
@@ -35,7 +34,6 @@ export async function GET(req: NextRequest) {
       where: { email: user.email },
     });
 
-    // console.log("🚀 ~ GET ~ findUser:", findUser);
 
     if (!findUser || findUser.refreshToken !== getRefreshToken) {
       throw new Error("Invalid refresh token or user not found");
@@ -44,8 +42,6 @@ export async function GET(req: NextRequest) {
     // Generate new access & refresh tokens
     const accessToken = generateAccessToken(user);
     const refreshToken = await generateRefreshToken(user);
-
-    console.log("New Tokens:", accessToken, "Refresh:", refreshToken);
 
     // **Update refresh token in the database**
     await prisma.user.update({
@@ -58,10 +54,6 @@ export async function GET(req: NextRequest) {
       { success: true, accessToken,refreshToken },
       { status: 200 }
     );
-
-    
-
-    // console.log(" Cookies updated successfully");
 
     return response;
   } catch (error) {

@@ -20,8 +20,6 @@ function ReadNext({ category }: categoryProp) {
 
   async function getRelatedBlogs() {
     if (!category) return; 
-    console.log("Fetching related blogs for category:", category);
-
     const res = await fetch(`/api/blogs?category=${encodeURIComponent(category)}&page=${page}`);
     const data = await res.json();
 

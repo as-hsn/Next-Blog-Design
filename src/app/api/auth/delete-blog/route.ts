@@ -27,7 +27,7 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
+      void error
     return NextResponse.json(
       { success: false, message: "Failed to delete blog" },
       { status: 500 }

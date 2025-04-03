@@ -34,7 +34,7 @@ export default function AuthorsList() {
   }, []);
 
   return (
-    <div className="container mx-auto pt-32">
+    <div className="container mx-auto mt-32">
       <h1 className="text-3xl md:text-4xl font-bold text-center text-black mb-12">
         List of Authors
       </h1>

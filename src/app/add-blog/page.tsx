@@ -40,7 +40,11 @@ export default function UploadForm() {
         ShowToast(data.message, "error");
       }
     } catch (error) {
-      console.error("Error fetching blogs:", error);
+      if (error instanceof Error) {
+        ShowToast(error.message)
+      }else{
+        ShowToast("Failed to fetch blogs")
+      }
     }
   };
   useEffect(() => {
@@ -67,7 +71,11 @@ export default function UploadForm() {
           ShowToast(data.message, "error");
         }
       } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+          ShowToast(error.message)
+        }else{
+          ShowToast("Something went wrong")
+        }
       } finally {
         if (blog.id === updateBlog?.id) {
           setUpdateBlog(null);
@@ -122,7 +130,11 @@ export default function UploadForm() {
               ShowToast(data.message, "error");
             }
           } catch (error) {
-            console.error("Error:", error);
+            if (error instanceof Error) {
+              ShowToast(error.message)
+            }else{
+             ShowToast("Failed to add the blog") 
+            }
           } finally {
             setLoading(false);
           }

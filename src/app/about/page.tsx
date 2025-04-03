@@ -15,7 +15,6 @@ function page() {
       <StartDetails />
       <div className='lg:px-16 xl:px-16 md:px-6 sm:p-5 custom-px-main'>
       <AuthorsList />
-
       </div>
       <div className="px-10">
       <JoinTeam />

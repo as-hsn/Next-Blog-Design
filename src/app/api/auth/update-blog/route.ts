@@ -89,7 +89,7 @@ export async function PUT(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
+    void error
     return NextResponse.json(
       { success: false, message: "Update failed" },
       { status: 500 }

@@ -28,7 +28,6 @@ export default function StorySection() {
     const data = await res.json();
     if (data.success) {
       setBlogs(data.blogs);
-      console.log(data.blogs);
     } else {
       ShowToast(data.message, "error");
     }

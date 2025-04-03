@@ -28,9 +28,7 @@ export default function FeaturedPosts() {
       });
       const data = await res.json();
       if (data.success) {
-        setBlogs(data.blogs);
-        console.log("🚀 ~ getBlogs ~ data:", data)
-        
+        setBlogs(data.blogs);        
       } else {
         ShowToast(data.message, "error");
       }

@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Prata&family=Sen:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Prata&family=Sen:wght@400..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-*{
+* {
   font-family: "Sen", serif;
   font-optical-sizing: auto;
 }
@@ -33,7 +31,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-a.active hr{
+a.active hr {
   display: block;
 }
 
@@ -43,9 +41,8 @@ a.active hr{
   font-style: normal;
 }
 
+/* Scrollbar styling start */
 
- /* Scrollbar styling start */
- 
 /* Global Scrollbar Styling */
 
 *::-webkit-scrollbar {
@@ -58,8 +55,7 @@ a.active hr{
   scrollbar-width: thin;
 }
 
- /* Scrollbar styling end */
-
+/* Scrollbar styling end */
 
 @media (min-width: 1340px) and (max-width: 1700px) {
   .custom-style-navbar {
@@ -67,29 +63,29 @@ a.active hr{
   }
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
   .custom-footer-css {
     align-items: center !important;
   }
 
-  .custom-css-heading{
+  .custom-css-heading {
     margin-top: 0% !important;
   }
-  .custom-css-news-letter{
+  .custom-css-news-letter {
     align-items: center !important;
     justify-content: center !important;
     display: flex !important;
   }
-  .custom-input-field{
+  .custom-input-field {
     max-width: fit-content !important;
   }
-  .custom-css-second-div{
+  .custom-css-second-div {
     align-items: center !important;
   }
 }
 
-@media (max-width: 640px){
-  .custom-input-field{
+@media (max-width: 640px) {
+  .custom-input-field {
     max-width: 1rem !important;
   }
 }
@@ -107,19 +103,18 @@ a.active hr{
   }
 } */
 
-.custom-line-height{
+.custom-line-height {
   line-height: 3rem !important;
 }
 
-
-@media (min-width: 1200px ) and (max-width: 1700px)  {
+@media (min-width: 1200px) and (max-width: 1700px) {
   .vl {
     border-right: 2px solid rgb(161, 161, 161);
   }
-} 
+}
 
-@media (max-width: 640px ) {
-  .custom-px-main{
+@media (max-width: 640px) {
+  .custom-px-main {
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -129,54 +124,52 @@ input::placeholder {
   color: rgb(70, 70, 70);
 }
 
-textarea::placeholder{
+textarea::placeholder {
   color: rgb(70, 70, 70);
 }
-
 
 /* Input Field Css */
 .input-group {
   position: relative;
- }
- 
- .input {
+}
+
+.input {
   border: solid 1.5px #c3c3c3;
   border-radius: 0.2rem;
   background: none;
   padding: 1rem;
   font-size: 1rem;
   color: rgb(86, 86, 86);
-  transition: border 150ms cubic-bezier(0.4,0,0.2,1);
- }
- 
- .user-label {
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-label {
   position: absolute;
   left: 15px;
   color: rgb(121, 121, 121);
   pointer-events: none;
   transform: translateY(1rem);
-  transition: 150ms cubic-bezier(0.4,0,0.2,1);
- }
- 
-  .input:focus, .input:not(:placeholder-shown) {
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus,
+.input:not(:placeholder-shown) {
   outline: none;
   border: 2px solid #ffc61b;
   opacity: 90%;
 }
 
-.input:focus ~ label, .input:not(:placeholder-shown) ~ label {
+.input:focus ~ label,
+.input:not(:placeholder-shown) ~ label {
   transform: translateY(-50%) scale(0.8);
   background-color: white;
-  padding: 0 .2em;
-  color:darkgray;
+  padding: 0 0.2em;
+  color: darkgray;
 }
 
-
-.custom-background{
-  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='20' patternTransform='scale(1) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='%23ffffffff'/><path d='M10-6V6M10 14v12M26 10H14M6 10H-6'  stroke-linecap='square' stroke-width='0.5' stroke='hsla(47,80.9%,61%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>")
+.custom-background {
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='20' patternTransform='scale(1) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='%23ffffffff'/><path d='M10-6V6M10 14v12M26 10H14M6 10H-6'  stroke-linecap='square' stroke-width='0.5' stroke='hsla(47,80.9%,61%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
 }
-
-
 
 /* Some css for loader */
 /* HTML: <div class="loader"></div> */
@@ -184,7 +177,7 @@ textarea::placeholder{
   --R: 10px;
   --g1: #514b82 96%, #0000;
   --g2: #eeeeee 96%, #0000;
-  width: calc(2*var(--R));
+  width: calc(2 * var(--R));
   aspect-ratio: 1;
   border-radius: 50%;
   display: grid;
@@ -197,16 +190,27 @@ textarea::placeholder{
   content: "";
   grid-area: 1/1;
   width: 50%;
-  background:
-    radial-gradient(farthest-side, var(--g1)) calc(var(--R) + 0.866*var(--R) - var(--R)) calc(var(--R) - 0.5*var(--R) - var(--R)),
-    radial-gradient(farthest-side, var(--g1)) calc(var(--R) + 0.866*var(--R) - var(--R)) calc(var(--R) - 0.5*var(--R) - var(--R)),
-    radial-gradient(farthest-side, var(--g2)) calc(var(--R) + 0.5*var(--R) - var(--R)) calc(var(--R) - 0.866*var(--R) - var(--R)),
-    radial-gradient(farthest-side, var(--g1)) 0 calc(-1*var(--R)),
-    radial-gradient(farthest-side, var(--g2)) calc(var(--R) - 0.5*var(--R) - var(--R)) calc(var(--R) - 0.866*var(--R) - var(--R)),
-    radial-gradient(farthest-side, var(--g1)) calc(var(--R) - 0.866*var(--R) - var(--R)) calc(var(--R) - 0.5*var(--R) - var(--R)),
-    radial-gradient(farthest-side, var(--g2)) calc(-1*var(--R)) 0,
-    radial-gradient(farthest-side, var(--g1)) calc(var(--R) - 0.866*var(--R) - var(--R)) calc(var(--R) + 0.5*var(--R) - var(--R));
-  background-size: calc(2*var(--R)) calc(2*var(--R));
+  background: radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) + 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) + 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g2))
+      calc(var(--R) + 0.5 * var(--R) - var(--R))
+      calc(var(--R) - 0.866 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1)) 0 calc(-1 * var(--R)),
+    radial-gradient(farthest-side, var(--g2))
+      calc(var(--R) - 0.5 * var(--R) - var(--R))
+      calc(var(--R) - 0.866 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) - 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g2)) calc(-1 * var(--R)) 0,
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) - 0.866 * var(--R) - var(--R))
+      calc(var(--R) + 0.5 * var(--R) - var(--R));
+  background-size: calc(2 * var(--R)) calc(2 * var(--R));
   background-repeat: no-repeat;
 }
 
@@ -218,5 +222,22 @@ textarea::placeholder{
 @keyframes l30 {
   100% {
     transform: rotate(-1turn);
+  }
+}
+
+/* Blog detail page loader */
+.loader-detail {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #ffa516 94%, #0000) top/8px 8px
+      no-repeat,
+    conic-gradient(#0000 30%, #ffa516);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: l13 1s infinite linear;
+}
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
   }
 }

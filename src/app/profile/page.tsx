@@ -84,8 +84,11 @@ const ProfilePage = () => {
       }
       setIsEditing(false);
     } catch (error) {
-      console.log(error);
-      ShowToast("Internel server error");
+      if (error instanceof Error) {
+        ShowToast(error.message)
+      }else{
+        ShowToast("Error updating profile please try later");
+      }
     } finally {
       setLoading(false);
     }
@@ -104,7 +107,11 @@ const ProfilePage = () => {
         }));
       }
     } catch (error) {
-      console.log(error);
+     if (error instanceof Error) {
+       ShowToast(error.message)
+     }else{
+      ShowToast("Error fetching details. Please reload and try again");
+     }
     }
   };
 

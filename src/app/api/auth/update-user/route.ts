@@ -6,9 +6,7 @@ const prisma = new PrismaClient();
 
 export async function PUT(req: NextRequest) {
   try {
-    const formData = await req.formData(); // Parse FormData
-    console.log("🚀 ~ FormData:", formData);
-
+    const formData = await req.formData(); 
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
@@ -17,8 +15,6 @@ export async function PUT(req: NextRequest) {
     const Gender = formData.get("Gender") as string;
     const Birthdate = formData.get("Birthdate") as string;
     const imageFile = formData.get("image") as File;
-
-
 
     if (!id) {
       return NextResponse.json({ success: false, error: "User ID is required" }, { status: 400 });
@@ -44,8 +40,8 @@ export async function PUT(req: NextRequest) {
         if (uploadResponse.secure_url) {
           imageUrl = uploadResponse.secure_url; 
         }
-      } catch (uploadError) {
-        console.error("Cloudinary Upload Error:", uploadError);
+      } catch (error) {
+        void error
         return NextResponse.json({ success: false, error: "Image upload failed" }, { status: 500 });
       }
     }
@@ -58,7 +54,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({ success: true, message: "User updated successfully", user: updatedUser }, { status: 200 });
   } catch (error) {
-    console.error("Error updating user:", error);
+    void error
     return NextResponse.json({ success: false, error: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -36,8 +36,11 @@ function ForgotPassword() {
         ShowToast(data.message || "Something went wrong.", "error");
       }
     } catch (error) {
-      console.log(error);
-      ShowToast("Error sending reset link:", "error");
+      if (error instanceof Error) {
+        ShowToast(error.message)
+      }else{
+        ShowToast("Error sending reset link:", "error");
+      }
     } finally {
       setSubmitting(false);
     }

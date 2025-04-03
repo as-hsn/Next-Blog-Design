@@ -104,8 +104,7 @@ export async function POST(req: Request) {
 
     return response;
   } catch (error) {
-    console.error("Signup Error:", error);
-    console.log("error is", error);
+    void error
     return NextResponse.json(
       { success: false, message: "Signup failed" },
       { status: 500 }

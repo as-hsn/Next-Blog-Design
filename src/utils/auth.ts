@@ -29,10 +29,8 @@ export const generateRefreshToken = async (user: User) => {
         where: { id: user.id },
         data: { refreshToken }
     });
-
     return refreshToken;
 };
-
 
 
 // Middleware to Check Access Token
@@ -44,7 +42,7 @@ export const verifyAccessToken = (req: Request) => {
     try {
         return jwt.verify(token, ACCESS_TOKEN_SECRET);
     } catch (error) {
-        console.log("🚀 ~ verifyAccessToken ~ error:", error)
+        void error
         return null;
     }
 };
@@ -55,7 +53,7 @@ export const verifyRefreshToken = (token: string) => {
     try {
         return jwt.verify(token, REFRESH_TOKEN_SECRET);
     } catch (error) {
-      console.log("🚀 ~ verifyRefreshToken ~ error:", error)
+      void error
         return null;
     }
 };

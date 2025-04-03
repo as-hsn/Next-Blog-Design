@@ -147,6 +147,49 @@ function Header() {
           )}
         </ul>
         <div className="flex items-center gap-6 mr-2 sm:mr-4 md:mr-0">
+          {!user ? (
+            <Link
+              className={`${
+                pathname === "/contact" && "active"
+              } flex flex-col items-center gap-1 sm:block md:hidden`}
+              href="/register"
+            >
+              <p className="text-customDark bg-white px-3 md:px-4 lg:px-6 py-2 md:py-3 font-semibold text-xs sm:text-sm md:text-base">
+                Register
+              </p>
+            </Link>
+          ) : (
+            <div className="relative group cursor-pointer sm:block md:hidden">
+              <PiUserCircleLight className="text-white w-8 h-8" />
+
+              <div className="hidden group-hover:block z-50 lg:right dropdown-menu pt-4 fixed -ml-20">
+                <div className="flex flex-col gap-2 py-3 px-5 bg-slate-100 text-gray-700 text-base rounded shadow-lg w-max">
+                  <p
+                    onClick={handleLogout}
+                    className="flex items-center cursor-pointer hover:text-black hover:font-semibold"
+                  >
+                    Logout <IoIosLogOut className="ml-3 text-red-500 w-6 h-6" />
+                  </p>
+
+                  <Link
+                    href={"/profile"}
+                    className="flex mt-4 items-center cursor-pointer hover:text-black hover:font-semibold"
+                  >
+                    Profile{" "}
+                    <LuUserPen className="ml-3 text-indigo-500 w-6 h-6" />
+                  </Link>
+                  <Link
+                    href={"/add-blog"}
+                    className="flex mt-4 items-center cursor-pointer hover:text-black hover:font-semibold"
+                  >
+                    Add Blogs{" "}
+                    <BiMessageAdd className="ml-3 font-light text-indigo-500 w-6 h-6" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
           <MdMenuOpen
             className="text-white text-[1.5rem] sm:text-[1.7rem] md:-ml-[5rem] cursor-pointer md:hidden"
             onClick={() => setVisible((prev) => !prev)}
@@ -212,15 +255,6 @@ function Header() {
               href="/our-policy"
             >
               Privacy Policy
-            </Link>
-            <Link
-              onClick={() => setVisible(false)}
-              className={`${
-                pathname === "/author" && "bg-black text-white"
-              } py-2 pl-6 border`}
-              href="/author"
-            >
-              Author
             </Link>
             <Link
               onClick={() => setVisible(false)}
