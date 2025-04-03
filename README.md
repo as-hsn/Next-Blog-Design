@@ -35,13 +35,13 @@
 - Responsive design for mobile and desktop
 - Filter blogs by category
 
-## Running the Server
-**Run the development server:**
-npm run dev
-**Build the project:**
-npm run build
-**Start the production server:**
-npm run start
+- ## Running the Server
+- **Run the development server:**
+- npm run dev
+- **Build the project:**
+- npm run build
+- **Start the production server:**
+- npm run start
 
 - ## Project URL
 Visit the live website [here](https://next-blog-design-two.vercel.app/).
