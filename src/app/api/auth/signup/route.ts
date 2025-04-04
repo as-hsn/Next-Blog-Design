@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     // If OTP is provided : Verify OTP
     if (otp) {
       const otpResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/verification`,
+        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/verification`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     // If OTP is not provided : Send email for OTP
     else {
       const sendOtpResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/verification`,
+        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/verification`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

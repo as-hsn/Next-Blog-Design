@@ -14,7 +14,6 @@ const pool = new Pool({
   connectionTimeoutMillis: 5000,
 });
 
-
 export async function POST(req: NextRequest) {
   try {
     const { email, otp, newPassword } = await req.json();

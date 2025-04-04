@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const resetLink = `${process.env.NEXT_PUBLIC_API_URL}/reset-password?email=${encodeURIComponent(
+    const resetLink = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/reset-password?email=${encodeURIComponent(
       email
     )}`;
 
