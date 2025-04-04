@@ -4,7 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { Pool } from "pg";
 import bcrypt from "bcryptjs";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+  max: 10, 
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+});
+
 
 export async function POST(req: NextRequest) {
   try {

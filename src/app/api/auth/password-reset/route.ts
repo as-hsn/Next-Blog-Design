@@ -5,6 +5,12 @@ import prisma from "@/lib/prisma";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+  max: 10, 
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
 });
 
 export async function POST(req: NextRequest) {
@@ -53,7 +59,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const resetLink = `http://localhost:3000/reset-password?email=${encodeURIComponent(
+    const resetLink = `${process.env.NEXT_PUBLIC_API_URL}/reset-password?email=${encodeURIComponent(
       email
     )}`;
 
